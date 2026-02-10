@@ -1,0 +1,284 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Quick Math</title>
+	<style>
+		.button-style {
+			position: fixed;
+			transform: translate(-50%, -50%);
+			font-size: clamp(32px, 6vw, 64px);
+			padding: 3vh 8vw;
+			border-radius: 20px;
+			border: none;
+			background: #0330f8;
+			color: white;
+			cursor: pointer;
+			font-weight: bold;
+		}
+
+		.solution-button {
+			display: none;
+			position: fixed;
+			transform: translate(-50%, -50%);
+			font-size: clamp(20px, 3.5vw, 36px);
+			padding: 2vh 2vw;
+			width: 22vw;
+			min-width: 120px;
+			max-width: 200px;
+			border-radius: 25px;
+			border: none;
+			background-color: rgb(174, 178, 170);
+			color: rgb(0, 0, 0);
+			cursor: pointer;
+			text-align: center;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+		}
+
+		.score-style {
+			position: fixed;
+			top: 3vh;
+			left: 4vw;
+			font-size: clamp(24px, 4.5vw, 42px);
+			color: rgb(3, 48, 248);
+			margin: 0;
+		}
+
+		.result-style {
+			display: none;
+			position: fixed;
+			transform: translate(-50%, -50%);
+			font-size: clamp(40px, 8vw, 120px);
+			padding: 1vh 2vw;
+			border-radius: 20px;
+			border: none;
+			color: rgb(0, 0, 0);
+			cursor: pointer;
+			white-space: nowrap;
+		}
+	</style>
+ </head>
+ <body>
+	<h1 style="
+		text-align: center;
+		font-size: clamp(32px, 5vw, 60px);
+		margin: 2vh 0;
+		">
+		Quick Math
+	</h1>
+
+	<h1 class="score-style">
+		Score
+		
+	</h1>
+
+	<h1 class="score-style" style="display: none;" id="Score">
+		
+	</h1>
+
+	<h1 class="score-style" style="left: auto; right: 4vw;" id="❤️❤️❤️">
+		
+	</h1>
+
+	
+
+
+	<button onclick="game()" class="button-style" style="top: 50%; left: 33%;" id="startButton">
+		Start
+	</button>
+
+	<button onclick="window.location.href='levels.html';" class="button-style" style="top: 50%; left: 72%;" id="levels">
+		Levels
+	</button>
+
+	<h1 class="result-style" style="top: 25%; left: 50%;" id="result">—
+	</h1>
+
+	<h1 onclick="is_solution(this)" class="solution-button" style="top: 60%; left: 63%;" id="solution1">—
+	</h1>
+
+	<h1 onclick="is_solution(this)" class="solution-button" style="top: 60%; left: 37%;" id="solution2">—
+	</h1>
+
+	<h1 onclick="is_solution(this)" class="solution-button" style="top: 76%; left: 37%;" id="solution3">—
+	</h1>
+
+	<h1 onclick="is_solution(this)" class="solution-button" style="top: 76%; left: 63%;" id="solution4">—
+	</h1>
+
+	<script>
+
+		let score = 0;
+		let heart = 3;
+		let correctAnswer = 0;
+
+		function updateHearts() {
+			const heartsElement = document.getElementById("❤️❤️❤️");
+			heartsElement.textContent = "❤️".repeat(heart);
+		}
+
+		function generate_number() {
+			return Math.floor(Math.random() * 99) + 1;
+		}
+
+		function generate_number2() {
+			return Math.floor(Math.random() * 4);
+		}
+
+		function generate_symbol() {
+			return Math.floor(Math.random() * 2);
+		}
+
+		function startGame() {
+			updateHearts();
+			const a = generate_number();
+			const b = generate_number();
+			const symbol = generate_symbol();
+			const where_is_correct_anwser = generate_number2();
+
+			// Vypočítaj správnu odpoveď podľa symbolu
+			if (symbol == 0) {
+				correctAnswer = a + b;
+			} else {
+				if ((a-b)>0){
+					correctAnswer = a - b;
+				}
+				else {
+					correctAnswer = b - a;
+
+				}
+				
+			}
+
+			const result = document.getElementById("result");
+			const solution1 = document.getElementById("solution1");
+			const solution2 = document.getElementById("solution2");
+			const solution3 = document.getElementById("solution3");
+			const solution4 = document.getElementById("solution4");
+			const Score = document.getElementById("Score");
+
+			Score.textContent = "Score: " + score;
+			Score.style.display = "block";
+
+			// Zobraz príklad podľa symbolu
+			if (symbol == 0) {
+				result.textContent = a + " + " + b + " = ";
+			} else {
+				
+				if ((a-b)>0){
+					result.textContent = a + " - " + b + " = ";
+				}
+				else {
+					result.textContent = b + " - " + a + " = ";
+
+				}
+			}
+			result.style.display = "block";
+
+			// Rozmiestnenie odpovedí
+			if (where_is_correct_anwser == 0) {
+				solution1.textContent = correctAnswer;
+				solution2.textContent = correctAnswer + 2;
+				solution3.textContent = correctAnswer - 2;
+				solution4.textContent = correctAnswer - 1;
+			}
+			if (where_is_correct_anwser == 1) {
+				solution2.textContent = correctAnswer;
+				solution1.textContent = correctAnswer + 2;
+				solution4.textContent = correctAnswer - 2;
+				solution3.textContent = correctAnswer - 1;
+			}
+			if (where_is_correct_anwser == 2) {
+				solution3.textContent = correctAnswer;
+				solution4.textContent = correctAnswer + 2;
+				solution1.textContent = correctAnswer - 2;
+				solution2.textContent = correctAnswer - 1;
+			}
+			if (where_is_correct_anwser == 3) {
+				solution4.textContent = correctAnswer;
+				solution1.textContent = correctAnswer + 2;
+				solution3.textContent = correctAnswer - 2;
+				solution2.textContent = correctAnswer - 1;
+			}
+
+			solution1.style.display = "block";
+			solution2.style.display = "block";
+			solution3.style.display = "block";
+			solution4.style.display = "block";
+		}
+
+		function is_solution(el) {
+			const value = Number(el.textContent);
+
+			if (value === correctAnswer) {
+				score++;
+				
+				// Zmen farbu pozadia celej stránky na zeleno
+				document.body.style.backgroundColor = "rgb(0, 255, 0)";
+				
+				// Po 1 sekunde pokračuj ďalej
+				setTimeout(() => {
+					document.body.style.backgroundColor = "white"; // Vráť pôvodnú farbu
+					startGame();
+				}, 1000);
+
+			} else { 
+				heart--;
+				updateHearts();
+				
+				// Zmen farbu pozadia na červeno
+				document.body.style.backgroundColor = "rgb(255, 0, 0)";
+				
+				if (heart!=0){
+					// Po 1 sekunde pokračuj ďalej
+					setTimeout(() => {
+						document.body.style.backgroundColor = "white"; // Vráť pôvodnú farbu
+						startGame();
+					}, 1000);
+				}
+				else{
+					// Po 1 sekunde zobraz game over
+					setTimeout(() => {
+						document.body.style.backgroundColor = "white"; // Vráť pôvodnú farbu
+						alert("GAME OVER!!!");
+						resetGame();
+					}, 1000);
+				}
+			}
+		}
+
+		function resetGame() {
+			// Skryť herné prvky
+			document.getElementById("result").style.display = "none";
+			document.getElementById("solution1").style.display = "none";
+			document.getElementById("solution2").style.display = "none";
+			document.getElementById("solution3").style.display = "none";
+			document.getElementById("solution4").style.display = "none";
+			document.getElementById("Score").style.display = "none";
+			document.getElementById("levels").style.display = "none";
+			
+			// Zobraziť tlačidlo Start
+			document.getElementById("startButton").style.display = "block";
+		}
+
+		// Alias pre kompatibilitu s tlačidlom Start
+		function game() {
+			// Resetovať score a srdcia
+			score = 0;
+			heart = 3;
+			
+			// Schovať tlačidlo Start a Levels
+			document.getElementById("startButton").style.display = "none";
+			document.getElementById("levels").style.display = "none";
+			
+			startGame();
+		}
+
+	</script>
+
+
+
+	 
+ </body>
+ </html>

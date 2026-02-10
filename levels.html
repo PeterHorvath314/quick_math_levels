@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Levels - Quick Math</title>
+	<style>
+
+		.back-button {
+			position: fixed;
+			top: 3vh;
+			right: 4vw;
+			font-size: clamp(20px, 3vw, 32px);
+			padding: 1vh 2vw;
+			border-radius: 15px;
+			border: none;
+			background: #0330f8;
+			color: white;
+			cursor: pointer;
+			font-weight: bold;
+		}
+
+		body {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+			margin: 0;
+			padding: 20px;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: clamp(32px, 5vw, 60px);
+			margin-bottom: 5vh;
+		}
+
+		.levels-grid {
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 20px;
+			max-width: 1200px;
+			width: 100%;
+			padding: 20px;
+		}
+
+		.button-style {
+			font-size: clamp(24px, 4vw, 48px);
+			padding: 4vh 4vw;
+			border-radius: 20px;
+			border: none;
+			background: #0330f8;
+			color: white;
+			cursor: pointer;
+			font-weight: bold;
+			transition: transform 0.2s, background-color 0.2s;
+		}
+
+		.button-style:hover {
+			background: #0246ff;
+			transform: scale(1.05);
+		}
+
+		.button-style:active {
+			transform: scale(0.95);
+		}
+
+		.level-completed {
+			background: #00c851 !important;
+		}
+
+		.level-completed:hover {
+			background: #00a843 !important;
+		}
+
+		.level-locked {
+			background: #999 !important;
+			cursor: not-allowed !important;
+			opacity: 0.6;
+		}
+
+		.level-locked:hover {
+			background: #999 !important;
+			transform: none !important;
+		}
+
+		@media (max-width: 900px) {
+			.levels-grid {
+				grid-template-columns: repeat(3, 1fr);
+			}
+		}
+
+		@media (max-width: 600px) {
+			.levels-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+	</style>
+</head>
+<body>
+	<h1>Levels</h1>
+
+		<button onclick="window.location.href='index.html';" class="back-button">
+			← Back
+		</button>
+		
+	<div class="levels-grid">
+		<button onclick="window.location.href='level01.html';" class="button-style" id="level01">
+			1
+		</button>
+
+		<button onclick="window.location.href='level02.html';" class="button-style" id="level02">
+			2
+		</button>
+
+		<button onclick="window.location.href='level03.html';" class="button-style" id="level03">
+			3
+		</button>
+
+		<button onclick="window.location.href='level04.html';" class="button-style" id="level04">
+			4
+		</button>
+
+		<button onclick="window.location.href='level05.html';" class="button-style" id="level05">
+			5
+		</button>
+
+		<button onclick="window.location.href='level06.html';" class="button-style" id="level06">
+			6
+		</button>
+
+		<button onclick="window.location.href='level07.html';" class="button-style" id="level07">
+			7
+		</button>
+
+		<button onclick="window.location.href='level08.html';" class="button-style" id="level08">
+			8
+		</button>
+
+		<button onclick="window.location.href='level09.html';" class="button-style" id="level09">
+			9
+		</button>
+
+		<button onclick="window.location.href='level10.html';" class="button-style" id="level10">
+			10
+		</button>
+	</div>
+	
+	<script>
+		// Check level progression on page load
+		function updateLevelProgression() {
+			const levels = [
+				{id: 'level01', url: 'level01.html'},
+				{id: 'level02', url: 'level02.html'},
+				{id: 'level03', url: 'level03.html'},
+				{id: 'level04', url: 'level04.html'},
+				{id: 'level05', url: 'level05.html'},
+				{id: 'level06', url: 'level06.html'},
+				{id: 'level07', url: 'level07.html'},
+				{id: 'level08', url: 'level08.html'},
+				{id: 'level09', url: 'level09.html'},
+				{id: 'level10', url: 'level10.html'}
+			];
+
+			let firstUncompletedIndex = -1;
+
+			// Find first uncompleted level
+			for (let i = 0; i < levels.length; i++) {
+				const completed = localStorage.getItem(levels[i].id + '_completed') === 'true';
+				if (!completed) {
+					firstUncompletedIndex = i;
+					break;
+				}
+			}
+
+			// If all levels completed, set to last level + 1
+			if (firstUncompletedIndex === -1) {
+				firstUncompletedIndex = levels.length;
+			}
+
+			// Apply styles and locks
+			for (let i = 0; i < levels.length; i++) {
+				const button = document.getElementById(levels[i].id);
+				
+				if (i < firstUncompletedIndex) {
+					// Completed levels - green
+					button.classList.add('level-completed');
+					button.textContent = i + 1 + ' ✓';
+				} else if (i === firstUncompletedIndex) {
+					// Current unlocked level - blue (default)
+					button.textContent = i + 1;
+				} else {
+					// Locked levels - gray and disabled
+					button.classList.add('level-locked');
+					button.textContent = i + 1 + ' 🔒';
+					button.onclick = function(e) {
+						e.preventDefault();
+						alert('Complete level ' + firstUncompletedIndex + ' first!');
+					};
+				}
+			}
+		}
+
+		// Run on page load
+		updateLevelProgression();
+	</script>
+</body>
+</html>
