@@ -239,6 +239,9 @@
 		</button>
 	</div>
 
+	<!-- Spoločný JavaScript súbor pre všetky levely -->
+	<script src="assets/common.js"></script>
+
 	<script>
 		let score = 0;
 		let heart = 3;
@@ -254,6 +257,13 @@
 		function updateTimer() {
 			const timerElement = document.getElementById("timer");
 			timerElement.textContent = "⏱️ " + timeLeft;
+			
+			// Prehraj tick zvuk
+			if (timeLeft <= 10 && timeLeft > 0) {
+				clock_tick_urgent(); // Intenzívnejší zvuk pre posledných 10 sekúnd
+			} else if (timeLeft > 0) {
+				clock_tick(); // Normálny tick
+			}
 			
 			if (timeLeft <= 0) {
 				clearInterval(timerInterval);
