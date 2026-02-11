@@ -410,6 +410,9 @@
 			// Save completion status
 			localStorage.setItem('level05_completed', 'true');
 			
+			// Prehraj RARE achievement zvuk pre boss level
+			play_boss_level_complete_sound();
+			
 			// Stop timer
 			if (timerInterval) {
 				clearInterval(timerInterval);

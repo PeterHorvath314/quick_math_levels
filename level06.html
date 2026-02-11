@@ -399,6 +399,9 @@
 			// Save completion status
 			localStorage.setItem('level06_completed', 'true');
 			
+			// Prehraj achievement zvuky
+			play_level_complete_sound();
+			
 			// Stop timer
 			if (timerInterval) {
 				clearInterval(timerInterval);

@@ -12,6 +12,16 @@ tickSounds.forEach(sound => {
 	sound.volume = 0.3; // Nastavte podľa potreby (0.0 - 1.0)
 });
 
+// Prednahratie achievement zvukov
+const achievementSound = new Audio('assets/sounds/Achievement Sound Effect.mp3');
+const minecraftXpSound = new Audio('assets/sounds/minecraft xp  Sound Effect.mp3');
+const rareAchievementSound = new Audio('assets/sounds/Rare Achievement - Minecraft Sound Effect (HD).mp3');
+
+// Nastavenie hlasitosti pre achievement zvuky
+achievementSound.volume = 0.5;
+minecraftXpSound.volume = 0.4;
+rareAchievementSound.volume = 0.6;
+
 // Index aktuálneho tick zvuku
 let currentTickIndex = 0;
 
@@ -48,5 +58,47 @@ function clock_tick_urgent() {
 		
 	} catch (error) {
 		console.log('Audio playback error:', error);
+	}
+}
+
+// Funkcia pre prehranie achievement zvukov pri dokončení levelu
+function play_level_complete_sound() {
+	try {
+		// Klonujeme zvuky pre možnosť opakovania
+		const achievement = achievementSound.cloneNode();
+		const xpSound = minecraftXpSound.cloneNode();
+		
+		achievement.volume = 0.5;
+		xpSound.volume = 0.4;
+		
+		// Prehraj oba zvuky súčasne
+		achievement.play().catch(error => {
+			console.log('Achievement sound playback failed:', error);
+		});
+		
+		xpSound.play().catch(error => {
+			console.log('XP sound playback failed:', error);
+		});
+		
+	} catch (error) {
+		console.log('Level complete sound error:', error);
+	}
+}
+
+// Funkcia pre prehranie rare achievement zvuku pri dokončení boss levelu
+function play_boss_level_complete_sound() {
+	try {
+		// Klonujeme zvuk pre možnosť opakovania
+		const rareAchievement = rareAchievementSound.cloneNode();
+		
+		rareAchievement.volume = 0.6;
+		
+		// Prehraj rare achievement zvuk
+		rareAchievement.play().catch(error => {
+			console.log('Rare achievement sound playback failed:', error);
+		});
+		
+	} catch (error) {
+		console.log('Boss level complete sound error:', error);
 	}
 }
