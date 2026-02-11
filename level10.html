@@ -292,8 +292,7 @@
 
 		function startGame() {
 			// ensure no solution button remains focused from previous question
-			document.querySelectorAll('.solution-button').forEach(b => b.blur());
-			if (document.activeElement) document.activeElement.blur();
+			document.querySelectorAll('.solution-button').forEach(b => b.blur && b.blur());
 
 			updateHearts();
 		
@@ -402,8 +401,7 @@
 
 		function is_solution(el) {
 			// remove focus from the button so it doesn't remain highlighted for next question
-			el.blur();
-			if (document.activeElement) document.activeElement.blur();
+			el.blur && el.blur();
 			const value = Number(el.textContent);
 
 			if (value === correctAnswer) {

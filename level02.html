@@ -287,9 +287,8 @@
 			return Math.floor(Math.random() * 2);
 		}
 
-		function startGame() {		// ensure no solution button remains focused from previous question
-		document.querySelectorAll('.solution-button').forEach(b => b.blur());
-		if (document.activeElement) document.activeElement.blur();			updateHearts();
+		function startGame() {
+			updateHearts();
 			const a = generate_number();
 			const b = generate_number();
 			const symbol = generate_symbol();
@@ -360,9 +359,7 @@
 		}
 
 		function is_solution(el) {
-		// remove focus from the button so it doesn't remain highlighted for next question
-		el.blur();
-		if (document.activeElement) document.activeElement.blur();
+			const value = Number(el.textContent);
 
 			if (value === correctAnswer) {
 				score++;
