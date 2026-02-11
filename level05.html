@@ -373,6 +373,7 @@
 		el.blur && el.blur();	const value = Number(el.textContent);
 			if (value === correctAnswer) {
 				score++;
+				play_correct_answer_sound(); // Prehraj zvuk správnej odpovede
 				
 				// Check if player won the level
 				if (score >= 10) {
@@ -387,6 +388,7 @@
 				}, 500);
 			} else { 
 				heart--;
+				play_wrong_answer_sound(); // Prehraj zvuk nesprávnej odpovede
 				updateHearts();
 				document.body.style.backgroundColor = "rgb(255, 0, 0)";
 				

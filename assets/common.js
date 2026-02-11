@@ -17,10 +17,18 @@ const achievementSound = new Audio('assets/sounds/Achievement Sound Effect.mp3')
 const minecraftXpSound = new Audio('assets/sounds/minecraft xp  Sound Effect.mp3');
 const rareAchievementSound = new Audio('assets/sounds/Rare Achievement - Minecraft Sound Effect (HD).mp3');
 
+// Prednahratie buzzer zvukov pre správne/nesprávne odpovede
+const correctBuzzer = new Audio('assets/sounds/buzzer. correct.mp3');
+const wrongBuzzer = new Audio('assets/sounds/buzzer. wrong.mp3');
+
 // Nastavenie hlasitosti pre achievement zvuky
 achievementSound.volume = 0.5;
 minecraftXpSound.volume = 0.4;
 rareAchievementSound.volume = 0.6;
+
+// Nastavenie hlasitosti pre buzzer zvuky
+correctBuzzer.volume = 0.4;
+wrongBuzzer.volume = 0.4;
 
 // Index aktuálneho tick zvuku
 let currentTickIndex = 0;
@@ -100,5 +108,37 @@ function play_boss_level_complete_sound() {
 		
 	} catch (error) {
 		console.log('Boss level complete sound error:', error);
+	}
+}
+
+// Funkcia pre prehranie zvuku správnej odpovede
+function play_correct_answer_sound() {
+	try {
+		// Klonujeme zvuk pre možnosť rýchleho opakovania
+		const correctSound = correctBuzzer.cloneNode();
+		correctSound.volume = 0.4;
+		
+		correctSound.play().catch(error => {
+			console.log('Correct answer sound playback failed:', error);
+		});
+		
+	} catch (error) {
+		console.log('Correct answer sound error:', error);
+	}
+}
+
+// Funkcia pre prehranie zvuku nesprávnej odpovede
+function play_wrong_answer_sound() {
+	try {
+		// Klonujeme zvuk pre možnosť rýchleho opakovania
+		const wrongSound = wrongBuzzer.cloneNode();
+		wrongSound.volume = 0.4;
+		
+		wrongSound.play().catch(error => {
+			console.log('Wrong answer sound playback failed:', error);
+		});
+		
+	} catch (error) {
+		console.log('Wrong answer sound error:', error);
 	}
 }
