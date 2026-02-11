@@ -57,14 +57,32 @@
 			transition: transform 0.2s, background-color 0.2s;
 		}
 
+		.button-style_boss_level{
+			font-size: clamp(24px, 4vw, 48px);
+			padding: 4vh 4vw;
+			border-radius: 20px;
+			border: none;
+			background: #b527f7;
+			color: white;
+			cursor: pointer;
+			font-weight: bold;
+			transition: transform 0.2s, background-color 0.2s;
+		}
+
 		.button-style:hover {
 			background: #0246ff;
+			transform: scale(1.05);
+		}
+
+		.button-style_boss_level:hover {
+			background: #8b1dbe;
 			transform: scale(1.05);
 		}
 
 		.button-style:active {
 			transform: scale(0.95);
 		}
+
 
 		.level-completed {
 			background: #00c851 !important;
@@ -73,6 +91,16 @@
 		.level-completed:hover {
 			background: #00a843 !important;
 		}
+
+
+		.level-completed_boss_level {
+			background: #b527f7 !important;
+		}
+
+		.level-completed_boss_level:hover {
+			background: #8b1dbe !important;
+		}
+
 
 		.level-locked {
 			background: #999 !important;
@@ -122,9 +150,12 @@
 			4
 		</button>
 
-		<button onclick="window.location.href='level05.html';" class="button-style" id="level05">
-			5
+		<button onclick="window.location.href='level05.html';"
+        class="button-style button-style_boss_level"
+        id="level05">
+  		5
 		</button>
+
 
 		<button onclick="window.location.href='level06.html';" class="button-style" id="level06">
 			6
@@ -142,68 +173,63 @@
 			9
 		</button>
 
-		<button onclick="window.location.href='level10.html';" class="button-style" id="level10">
+		<button onclick="window.location.href='level10.html';" class="button-style_boss_level" id="level10">
 			10
 		</button>
 	</div>
 	
 	<script>
-		// Check level progression on page load
-		function updateLevelProgression() {
-			const levels = [
-				{id: 'level01', url: 'level01.html'},
-				{id: 'level02', url: 'level02.html'},
-				{id: 'level03', url: 'level03.html'},
-				{id: 'level04', url: 'level04.html'},
-				{id: 'level05', url: 'level05.html'},
-				{id: 'level06', url: 'level06.html'},
-				{id: 'level07', url: 'level07.html'},
-				{id: 'level08', url: 'level08.html'},
-				{id: 'level09', url: 'level09.html'},
-				{id: 'level10', url: 'level10.html'}
-			];
+  const bossLevels = new Set(['level05', 'level10']);
 
-			let firstUncompletedIndex = -1;
+  function updateLevelProgression() {
+    const levels = [
+      {id: 'level01', url: 'level01.html'},
+      {id: 'level02', url: 'level02.html'},
+      {id: 'level03', url: 'level03.html'},
+      {id: 'level04', url: 'level04.html'},
+      {id: 'level05', url: 'level05.html'},
+      {id: 'level06', url: 'level06.html'},
+      {id: 'level07', url: 'level07.html'},
+      {id: 'level08', url: 'level08.html'},
+      {id: 'level09', url: 'level09.html'},
+      {id: 'level10', url: 'level10.html'}
+    ];
 
-			// Find first uncompleted level
-			for (let i = 0; i < levels.length; i++) {
-				const completed = localStorage.getItem(levels[i].id + '_completed') === 'true';
-				if (!completed) {
-					firstUncompletedIndex = i;
-					break;
-				}
-			}
+    let firstUncompletedIndex = -1;
 
-			// If all levels completed, set to last level + 1
-			if (firstUncompletedIndex === -1) {
-				firstUncompletedIndex = levels.length;
-			}
+    for (let i = 0; i < levels.length; i++) {
+      const completed = localStorage.getItem(levels[i].id + '_completed') === 'true';
+      if (!completed) { firstUncompletedIndex = i; break; }
+    }
 
-			// Apply styles and locks
-			for (let i = 0; i < levels.length; i++) {
-				const button = document.getElementById(levels[i].id);
-				
-				if (i < firstUncompletedIndex) {
-					// Completed levels - green
-					button.classList.add('level-completed');
-					button.textContent = i + 1 + ' ✓';
-				} else if (i === firstUncompletedIndex) {
-					// Current unlocked level - blue (default)
-					button.textContent = i + 1;
-				} else {
-					// Locked levels - gray and disabled
-					button.classList.add('level-locked');
-					button.textContent = i + 1 + ' 🔒';
-					button.onclick = function(e) {
-						e.preventDefault();
-						alert('Complete level ' + firstUncompletedIndex + ' first!');
-					};
-				}
-			}
-		}
+    if (firstUncompletedIndex === -1) firstUncompletedIndex = levels.length;
 
-		// Run on page load
-		updateLevelProgression();
-	</script>
+    for (let i = 0; i < levels.length; i++) {
+      const button = document.getElementById(levels[i].id);
+      if (!button) continue;
+
+      // reset (aby sa to nelepilo pri refreshi)
+      button.classList.remove('level-completed','level-completed_boss_level','level-locked');
+      button.onclick = () => window.location.href = levels[i].url;
+
+      if (i < firstUncompletedIndex) {
+        button.classList.add(bossLevels.has(levels[i].id) ? 'level-completed_boss_level' : 'level-completed');
+        button.textContent = (i + 1) + ' ✓';
+      } else if (i === firstUncompletedIndex) {
+        button.textContent = i + 1;
+      } else {
+        button.classList.add('level-locked');
+        button.textContent = (i + 1) + ' 🔒';
+        button.onclick = (e) => {
+          e.preventDefault();
+          alert('Complete level ' + (firstUncompletedIndex + 1) + ' first!');
+        };
+      }
+    }
+  }
+
+  updateLevelProgression();
+</script>
+
 </body>
 </html>

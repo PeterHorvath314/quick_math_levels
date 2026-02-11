@@ -71,6 +71,73 @@
 			cursor: pointer;
 			font-weight: bold;
 		}
+
+		.timer-style {
+			position: fixed;
+			top: 8vh;
+			left: 49%;
+			transform: translateX(-50%);
+			font-size: clamp(24px, 4vw, 42px);
+			color: rgb(88, 85, 85);
+			margin: 0;
+			font-weight: bold;
+			display: none;
+		}
+
+		.description-style {
+			position: fixed;
+			top: 35%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: clamp(20px, 3.5vw, 32px);
+			color: rgb(50, 50, 50);
+			margin: 0;
+			text-align: center;
+			font-weight: 500;
+		}
+
+		.victory-screen {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 255, 0, 0.9);
+			z-index: 1000;
+		}
+
+		.victory-message {
+			position: fixed;
+			top: 30%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: clamp(48px, 8vw, 80px);
+			color: white;
+			font-weight: bold;
+			text-align: center;
+			text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+		}
+
+		.next-level-button {
+			position: fixed;
+			top: 60%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: clamp(32px, 6vw, 64px);
+			padding: 3vh 8vw;
+			border-radius: 20px;
+			border: none;
+			background: white;
+			color: #0330f8;
+			cursor: pointer;
+			font-weight: bold;
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+		}
+
+		.next-level-button:hover {
+			transform: translate(-50%, -50%) scale(1.05);
+		}
 	</style>
 </head>
 <body>
@@ -96,6 +163,14 @@
 	<h1 class="score-style" style="left: auto; right: 4vw; top: 8vh;" id="❤️❤️❤️">
 	</h1>
 
+	<h1 class="timer-style" id="timer">
+		⏱️ 30
+	</h1>
+
+	<p class="description-style" id="levelDescription">
+		Score 10 points within 25 seconds
+	</p>
+
 	<button onclick="game()" class="button-style" style="top: 50%; left: 50%;" id="startButton">
 		Start
 	</button>
@@ -103,7 +178,7 @@
 	<h1 class="result-style" style="top: 25%; left: 50%;" id="result">—
 	</h1>
 
-	<h1 onclick="is_solution(this)" class="solution-button" style="top: 60%; left: 63%;" id="solution1">—
+	<h1 onclick="is_solution(this)" class="solution-button" style="top: 60%; left: 68%;" id="solution1">—
 	</h1>
 
 	<h1 onclick="is_solution(this)" class="solution-button" style="top: 60%; left: 37%;" id="solution2">—
@@ -112,48 +187,74 @@
 	<h1 onclick="is_solution(this)" class="solution-button" style="top: 76%; left: 37%;" id="solution3">—
 	</h1>
 
-	<h1 onclick="is_solution(this)" class="solution-button" style="top: 76%; left: 63%;" id="solution4">—
+	<h1 onclick="is_solution(this)" class="solution-button" style="top: 76%; left: 68%;" id="solution4">—
 	</h1>
+
+	<div class="victory-screen" id="victoryScreen">
+		<div class="victory-message">
+			🎉 LEVEL COMPLETE! 🎉
+		</div>
+		<button onclick="window.location.href='level09.html';" class="next-level-button">
+			Next Level →
+		</button>
+	</div>
 
 	<script>
 		let score = 0;
 		let heart = 3;
 		let correctAnswer = 0;
+		let timeLeft = 25;
+		let timerInterval = null;
 
 		function updateHearts() {
 			const heartsElement = document.getElementById("❤️❤️❤️");
 			heartsElement.textContent = "❤️".repeat(heart);
 		}
 
-		function generate_number() {
-			return Math.floor(Math.random() * 99) + 1;
+		function updateTimer() {
+			const timerElement = document.getElementById("timer");
+			timerElement.textContent = "⏱️ " + timeLeft;
+			
+			if (timeLeft <= 0) {
+				clearInterval(timerInterval);
+				alert("TIME'S UP! Final Score: " + score);
+				resetGame();
+			}
 		}
+
+		function startTimer() {
+			timeLeft = 25;
+			document.getElementById("timer").style.display = "block";
+			updateTimer();
+			
+			if (timerInterval) {
+				clearInterval(timerInterval);
+			}
+			
+			timerInterval = setInterval(() => {
+				timeLeft--;
+				updateTimer();
+			}, 1000);
+		}
+
+
+
+		function generate_number(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+
 
 		function generate_number2() {
 			return Math.floor(Math.random() * 4);
 		}
 
-		function generate_symbol() {
-			return Math.floor(Math.random() * 2);
-		}
 
 		function startGame() {
 			updateHearts();
-			const a = generate_number();
-			const b = generate_number();
-			const symbol = generate_symbol();
+			const a = generate_number(6, 10);
+			const b = generate_number(6, 10);
 			const where_is_correct_anwser = generate_number2();
-
-			if (symbol == 0) {
-				correctAnswer = a + b;
-			} else {
-				if ((a-b)>0){
-					correctAnswer = a - b;
-				}
-				else {
-					correctAnswer = b - a;
-				}
-			}
+			
 
 			const result = document.getElementById("result");
 			const solution1 = document.getElementById("solution1");
@@ -165,16 +266,11 @@
 			Score.textContent = "Score: " + score;
 			Score.style.display = "block";
 
-			if (symbol == 0) {
-				result.textContent = a + " + " + b + " = ";
-			} else {
-				if ((a-b)>0){
-					result.textContent = a + " - " + b + " = ";
-				}
-				else {
-					result.textContent = b + " - " + a + " = ";
-				}
-			}
+			correctAnswer = a * b;
+
+			result.textContent = a + " x " + b + " = ";
+			
+			
 			result.style.display = "block";
 
 			if (where_is_correct_anwser == 0) {
@@ -213,11 +309,18 @@
 
 			if (value === correctAnswer) {
 				score++;
+				
+				// Check if player won the level
+				if (score >= 1) {
+					levelComplete();
+					return;
+				}
+				
 				document.body.style.backgroundColor = "rgb(0, 255, 0)";
 				setTimeout(() => {
 					document.body.style.backgroundColor = "white";
 					startGame();
-				}, 1000);
+				}, 200);
 			} else { 
 				heart--;
 				updateHearts();
@@ -239,22 +342,60 @@
 			}
 		}
 
-		function resetGame() {
+		function levelComplete() {
+			// Save completion status
+			localStorage.setItem('level08_completed', 'true');
+			
+			// Stop timer
+			if (timerInterval) {
+				clearInterval(timerInterval);
+				timerInterval = null;
+			}
+			
+			// Hide game elements
 			document.getElementById("result").style.display = "none";
 			document.getElementById("solution1").style.display = "none";
 			document.getElementById("solution2").style.display = "none";
 			document.getElementById("solution3").style.display = "none";
 			document.getElementById("solution4").style.display = "none";
 			document.getElementById("Score").style.display = "none";
+			document.getElementById("timer").style.display = "none";
+			document.getElementById("❤️❤️❤️").style.display = "none";
+			
+			// Show victory screen
+			document.body.style.backgroundColor = "rgb(0, 255, 0)";
+			setTimeout(() => {
+				document.getElementById("victoryScreen").style.display = "block";
+			}, 500);
+		}
+
+		function resetGame() {
+			if (timerInterval) {
+				clearInterval(timerInterval);
+				timerInterval = null;
+			}
+			
+			document.getElementById("result").style.display = "none";
+			document.getElementById("solution1").style.display = "none";
+			document.getElementById("solution2").style.display = "none";
+			document.getElementById("solution3").style.display = "none";
+			document.getElementById("solution4").style.display = "none";
+			document.getElementById("Score").style.display = "none";
+			document.getElementById("timer").style.display = "none";
+			document.getElementById("levelDescription").style.display = "block";
 			document.getElementById("startButton").style.display = "block";
+			document.body.style.backgroundColor = "white";
 			score = 0;
 			heart = 3;
+			timeLeft = 25;
 		}
 
 		function game() {
 			score = 0;
 			heart = 3;
 			document.getElementById("startButton").style.display = "none";
+			document.getElementById("levelDescription").style.display = "none";
+			startTimer();
 			startGame();
 		}
 	</script>

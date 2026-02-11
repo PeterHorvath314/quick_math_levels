@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Level 1 - Quick Math</title>
+	<title>Level 2 - Quick Math</title>
 	<style>
 		.button-style {
 			position: fixed;
@@ -178,7 +178,7 @@
 	<h1 class="result-style" style="top: 25%; left: 50%;" id="result">—
 	</h1>
 
-	<h1 onclick="is_solution(this)" class="solution-button" style="top: 60%; left: 63%;" id="solution1">—
+	<h1 onclick="is_solution(this)" class="solution-button" style="top: 60%; left: 68%;" id="solution1">—
 	</h1>
 
 	<h1 onclick="is_solution(this)" class="solution-button" style="top: 60%; left: 37%;" id="solution2">—
@@ -187,14 +187,14 @@
 	<h1 onclick="is_solution(this)" class="solution-button" style="top: 76%; left: 37%;" id="solution3">—
 	</h1>
 
-	<h1 onclick="is_solution(this)" class="solution-button" style="top: 76%; left: 63%;" id="solution4">—
+	<h1 onclick="is_solution(this)" class="solution-button" style="top: 76%; left: 68%;" id="solution4">—
 	</h1>
 
 	<div class="victory-screen" id="victoryScreen">
 		<div class="victory-message">
 			🎉 LEVEL COMPLETE! 🎉
 		</div>
-		<button onclick="window.location.href='level02.html';" class="next-level-button">
+		<button onclick="window.location.href='level03.html';" class="next-level-button">
 			Next Level →
 		</button>
 	</div>
@@ -238,7 +238,7 @@
 		}
 
 		function generate_number() {
-			return Math.floor(Math.random() * 9) + 1;
+			return Math.floor(Math.random() * 4) + 1;
 		}
 
 		function generate_number2() {
@@ -360,7 +360,7 @@
 
 		function levelComplete() {
 			// Save completion status
-			localStorage.setItem('level01_completed', 'true');
+			localStorage.setItem('level02_completed', 'true');
 			
 			// Stop timer
 			if (timerInterval) {
