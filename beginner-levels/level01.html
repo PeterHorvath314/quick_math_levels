@@ -644,11 +644,17 @@
 
 		function unlockAllLevels() {
 			if (confirm("Naozaj chceš odomknut všetky levely?")) {
-				// Odomkni všetky levely v localStorage (01-10 beginner, 11-20 ultra-fast)
+				// Odomkni všetky beginner levely (01-10)
 				for (let i = 1; i <= 10; i++) {
 					const level = 'level' + String(i).padStart(2, '0');
 					localStorage.setItem(level + '_completed', 'true');
 					localStorage.setItem(level + '_unlocked', 'true');
+				}
+				// Odomkni všetky ultra-fast levely (01-10)
+				for (let i = 1; i <= 10; i++) {
+					const level = 'level' + String(i).padStart(2, '0');
+					localStorage.setItem(level + '_ultrafast_completed', 'true');
+					localStorage.setItem(level + '_ultrafast_unlocked', 'true');
 				}
 				alert("Všetky levely sú odomknuté!");
 				setTimeout(() => {
