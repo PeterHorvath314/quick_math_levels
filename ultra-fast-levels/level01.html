@@ -211,6 +211,16 @@
 		.next-level-button:hover {
 			transform: translate(-50%, -50%) scale(1.05);
 		}
+
+		.start-button {
+			background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+			border: 2px solid #8b5cf6 !important;
+			box-shadow: 0 8px 16px rgba(45, 9, 153, 0.4), 0 0 40px rgba(147, 129, 199, 0.8), 0 0 80px rgba(131, 92, 246, 0.56) !important;
+		}
+
+		.start-button:hover {
+			box-shadow: 0 8px 16px rgba(131, 92, 246, 0.60), 0 0 48px rgba(131, 92, 246, 0.8), 0 0 96px rgba(131, 92, 246, 0.64) !important;
+		}
 	</style>
 </head>
 <body>
@@ -241,7 +251,7 @@
 	</h1>
 
 	<p class="description-title-style" id="levelTitle">
-		⚡ ULTRA FAST ⚡
+		10 príkladov + 25 sekúnd = ⚡
 	</p>
 
 	<p class="description-style" id="levelDescription">
@@ -250,7 +260,7 @@
 
 	
 
-	<button onclick="game()" class="button-style" style="top: 65%; left: 50%;" id="startButton">
+	<button onclick="game()" class="button-style start-button" style="top: 65%; left: 50%;" id="startButton">
 		Start
 	</button>
 
