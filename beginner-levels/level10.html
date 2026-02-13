@@ -130,7 +130,7 @@
 
 		.description-title-style {
 			position: fixed;
-			top: 37%;
+			top: 30%;
 			left: 50%;
 			transform: translate(-50%, -50%);
 			font-size: clamp(18px, 3.5vw, 28px);
@@ -140,7 +140,7 @@
 			font-weight: bold;
 			padding: 1.5vh 3vw;
 			border: 1px solid black;
-			border-radius: 10px;
+			border-radius: 12px;
 			background-color: rgb(220, 220, 220);
 		}
 
@@ -228,11 +228,11 @@
 	</h1>
 
 	<p class="description-title-style" id="levelTitle">
-		Malá nasobilka, v celkom rychlom tempe
+		Dokázal si to! 🏆 si v poslednom levely. <br> <br> Celá tvoja cesta viedla k tomuto momentu, ukáž čo v sebe máš 🧩. <br><br>Nezabudni, máš 50 sekúnd ⏱️ používaj mozog 🧠. <br> <br> „Nechť vás provází štěstěna.“ 🍀
 	</p>
 
 	<p class="description-style" id="levelDescription">
-		Score 15 points within 60 seconds
+		Score 15 points within 50 seconds
 	</p>
 
 	<button onclick="game()" class="button-style" style="top: 65%; left: 50%;" id="startButton">
@@ -265,7 +265,7 @@
 		let score = 0;
 		let heart = 3;
 		let correctAnswer = 0;
-		let timeLeft = 60;
+		let timeLeft = 50;
 		let timerInterval = null;
 
 		function updateHearts() {
@@ -292,7 +292,7 @@
 		}
 
 		function startTimer() {
-			timeLeft = 60;
+			timeLeft = 50;
 			document.getElementById("timer").style.display = "block";
 			updateTimer();
 			
@@ -519,7 +519,7 @@
 			document.body.style.backgroundColor = "white";
 			score = 0;
 			heart = 3;
-			timeLeft = 60;
+			timeLeft = 50;
 		}
 
 		function game() {
