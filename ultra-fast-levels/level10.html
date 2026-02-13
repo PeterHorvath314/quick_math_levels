@@ -1,12 +1,9 @@
-
-
-
 <!DOCTYPE html>
- <html lang="en">
- <head>
+<html lang="en">
+<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Quick Math</title>
+	<title>Level 10 - Quick Math</title>
 	<style>
 		.button-style {
 			position: fixed;
@@ -81,7 +78,7 @@
 			font-size: clamp(32px, 9vw, 72px);
 			padding: 2vh 3vw;
 			min-width: 140px;	}
-}
+		}
 
 		.score-style {
 			position: fixed;
@@ -90,40 +87,6 @@
 			font-size: clamp(24px, 4.5vw, 42px);
 			color: rgb(3, 48, 248);
 			margin: 0;
-		}
-
-		.highest-score {
-			position: fixed;
-			top: 18vh;
-			left: 50%;
-			transform: translateX(-50%);
-			text-align: center;
-			margin: 0;
-		}
-
-		.highest-score-label {
-			font-size: clamp(20px, 3vw, 28px);
-			color: rgba(3, 48, 248, 0.7);
-			font-weight: 600;
-			margin-bottom: 0.5vh;
-			letter-spacing: 1px;
-			text-transform: uppercase;
-		}
-
-		.highest-score-value {
-			font-size: clamp(48px, 10vw, 96px);
-			font-weight: 800;
-			background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
-			text-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-			animation: pulse 2s ease-in-out infinite;
-		}
-
-		@keyframes pulse {
-			0%, 100% { transform: scale(1); }
-			50% { transform: scale(1.05); }
 		}
 
 		.result-style {
@@ -139,18 +102,56 @@
 			white-space: nowrap;
 		}
 
-		.gameover-screen {
+		.back-button {
+			position: fixed;
+			top: 3vh;
+			right: 4vw;
+			font-size: clamp(20px, 3vw, 32px);
+			padding: 1vh 2vw;
+			border-radius: 15px;
+			border: none;
+			background: #0330f8;
+			color: white;
+			cursor: pointer;
+			font-weight: bold;
+		}
+
+		.timer-style {
+			position: fixed;
+			top: 8vh;
+			left: 49%;
+			transform: translateX(-50%);
+			font-size: clamp(24px, 4vw, 42px);
+			color: rgb(88, 85, 85);
+			margin: 0;
+			font-weight: bold;
+			display: none;
+		}
+
+		.description-style {
+			position: fixed;
+			top: 35%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: clamp(20px, 3.5vw, 32px);
+			color: rgb(50, 50, 50);
+			margin: 0;
+			text-align: center;
+			font-weight: 500;
+		}
+
+		.victory-screen {
 			display: none;
 			position: fixed;
 			top: 0;
 			left: 0;
 			width: 100%;
 			height: 100%;
-			background-color: rgba(255, 0, 0, 0.9);
+			background-color: rgba(0, 255, 0, 0.9);
 			z-index: 1000;
 		}
 
-		.gameover-message {
+		.victory-message {
 			position: fixed;
 			top: 30%;
 			left: 50%;
@@ -162,18 +163,7 @@
 			text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
 		}
 
-		.gameover-score {
-			position: fixed;
-			top: 45%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			font-size: clamp(36px, 6vw, 64px);
-			color: white;
-			font-weight: bold;
-			text-align: center;
-		}
-
-		.back-button {
+		.next-level-button {
 			position: fixed;
 			top: 60%;
 			left: 50%;
@@ -189,42 +179,44 @@
 			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 		}
 
-		.back-button:hover {
+		.next-level-button:hover {
 			transform: translate(-50%, -50%) scale(1.05);
 		}
 	</style>
- </head>
- <body>
+</head>
+<body>
 	<h1 style="
 		text-align: center;
 		font-size: clamp(32px, 5vw, 60px);
 		margin: 2vh 0;
 		">
-		Quick Math
+		Level 8
 	</h1>
 
-	<div class="highest-score">
-		<div class="highest-score-label">Highest Score</div>
-		<div class="highest-score-value" id="HighestScore">0</div>
-	</div>
-
-	<h1 class="score-style" style="top: 3vh; left: 4vw; right: auto; display: none;" id="CurrentScore">
-		
-	</h1>
-
-	<h1 class="score-style" style="top: 2.5vh; left: 75vw; right: auto;" id="❤️❤️❤️">
-		
-	</h1>
-
-	
-
-
-	<button onclick="game()" class="button-style" style="top: 50%; left: 33%;" id="startButton">
-		Start
+	<button onclick="window.location.href='../levels-ultra-fast.html';" class="back-button">
+		← Back
 	</button>
 
-	<button onclick="window.location.href='game-modes.html';" class="button-style" style="top: 50%; left: 72%;" id="levels">
-		Levels
+	<h1 class="score-style">
+		Score
+	</h1>
+
+	<h1 class="score-style" style="display: none;" id="Score">
+	</h1>
+
+	<h1 class="score-style" style="left: auto; right: 4vw; top: 8vh;" id="❤️❤️❤️">
+	</h1>
+
+	<h1 class="timer-style" id="timer">
+		⏱️ 30
+	</h1>
+
+	<p class="description-style" id="levelDescription">
+		Score 10 points within 25 seconds
+	</p>
+
+	<button onclick="game()" class="button-style" style="top: 50%; left: 50%;" id="startButton">
+		Start
 	</button>
 
 	<h1 class="result-style" style="top: 25%; left: 50%;" id="result">—
@@ -237,34 +229,24 @@
 		<button onclick="is_solution(this)" class="solution-button" id="solution4" aria-label="Option 4">—</button>
 	</div>
 
-	<div class="gameover-screen" id="gameoverScreen">
-		<div class="gameover-message">
-			💥 GAME OVER! 💥
+	<div class="victory-screen" id="victoryScreen">
+		<div class="victory-message">
+			🎉 LEVEL COMPLETE! 🎉
 		</div>
-		<div class="gameover-score" id="finalScore">
-			Your score is 0
-		</div>
-		<button onclick="location.reload()" class="back-button">
-			Back
+		<button onclick="window.location.href='../levels-ultra-fast.html';" class="next-level-button">
+			Next Level →
 		</button>
 	</div>
 
 	<!-- Spoločný JavaScript súbor pre všetky levely -->
-	<script src="assets/common.js"></script>
+	<script src="../assets/common.js"></script>
 
 	<script>
 		let score = 0;
 		let heart = 3;
 		let correctAnswer = 0;
-		let timeLeft = 60;
+		let timeLeft = 25;
 		let timerInterval = null;
-		let highestScore = 0;
-
-		// Načítaj highest score pri načítaní stránky
-		window.addEventListener('DOMContentLoaded', () => {
-			highestScore = parseInt(localStorage.getItem('index_highest_score') || '0');
-			document.getElementById("HighestScore").textContent = highestScore;
-		});
 
 		function updateHearts() {
 			const heartsElement = document.getElementById("❤️❤️❤️");
@@ -290,7 +272,7 @@
 		}
 
 		function startTimer() {
-			timeLeft = 60;
+			timeLeft = 25;
 			document.getElementById("timer").style.display = "block";
 			updateTimer();
 			
@@ -315,53 +297,14 @@
 			return Math.floor(Math.random() * 4);
 		}
 
-	
-		let symbol = 0;
 
 		function startGame() {
 			// ensure no solution button remains focused from previous question
 			document.querySelectorAll('.solution-button').forEach(b => b.blur && b.blur());
-
 			updateHearts();
-		
-			symbol = (symbol + 1) % 4;
-			let a = 0
-			let b = 0
+			const a = generate_number(6, 10);
+			const b = generate_number(6, 10);
 			const where_is_correct_anwser = generate_number2();
-
-			//plus
-			if (symbol == 0) {
-				a = generate_number(1, 99);
-				 b = generate_number(2, 99);
-				correctAnswer = a + b;
-			} 
-			//minus
-			if (symbol == 1) {
-				 a = generate_number(1, 99);
-				 b = generate_number(2, 99);
-				if ((a-b)>0){
-					correctAnswer = a - b;
-				}
-				else {
-					correctAnswer = b - a;
-				}
-			}
-			//krat
-			if (symbol == 2){
-				 a = generate_number(1, 9);
-				 b = generate_number(2, 9);
-
-				correctAnswer = a * b;
-			}
-			//
-			if (symbol == 3){
-				 a = generate_number(11, 19);
-				 b = generate_number(2, 4);
-
-				correctAnswer = a * b;
-			}
-
-			
 			
 
 			const result = document.getElementById("result");
@@ -369,30 +312,15 @@
 			const solution2 = document.getElementById("solution2");
 			const solution3 = document.getElementById("solution3");
 			const solution4 = document.getElementById("solution4");
-			const CurrentScore = document.getElementById("CurrentScore");
+			const Score = document.getElementById("Score");
 
-			CurrentScore.textContent = "Score: " + score;
-			CurrentScore.style.display = "block";
+			Score.textContent = "Score: " + score;
+			Score.style.display = "block";
 
+			correctAnswer = a * b;
 
-			if (symbol == 0) {
-
-				result.textContent = a + " + " + b + " = ";
-
-			} else if (symbol == 1) {
-
-				result.textContent = Math.max(a,b) + " - " + Math.min(a,b) + " = ";
-
-			} else if (symbol == 2) {
-
-				result.textContent = a + " x " + b + " = ";
-
-			} else if (symbol == 3) {
-
-				result.textContent = a + " x " + b + " = ";
-
-			}
-
+			result.textContent = a + " x " + b + " = ";
+			
 			
 			result.style.display = "block";
 
@@ -437,7 +365,7 @@
 				play_correct_answer_sound(); // Prehraj zvuk správnej odpovede
 				
 				// Check if player won the level
-				if (score >= 100) {
+				if (score >= 10) {
 					levelComplete();
 					return;
 				}
@@ -462,42 +390,19 @@
 				else{
 					setTimeout(() => {
 						document.body.style.backgroundColor = "white";
-						showGameOver();
+						alert("GAME OVER!!!");
+						resetGame();
 					}, 1000);
 				}
 			}
 		}
 
-		function showGameOver() {
-			// Aktualizuj highest score ak je aktuálne skóre vyššie
-			if (score > highestScore) {
-				highestScore = score;
-				localStorage.setItem('index_highest_score', highestScore.toString());
-				document.getElementById("HighestScore").textContent = highestScore;
-			}
-			
-			// Hide game elements
-			document.getElementById("result").style.display = "none";
-			document.getElementById("solution1").style.display = "none";
-			document.getElementById("solution2").style.display = "none";
-			document.getElementById("solution3").style.display = "none";
-			document.getElementById("solution4").style.display = "none";
-			document.getElementById("CurrentScore").style.display = "none";
-			document.getElementById("❤️❤️❤️").style.display = "none";
-			
-			// Update final score
-			document.getElementById("finalScore").textContent = "Your score is " + score;
-			
-			// Show game over screen
-			document.getElementById("gameoverScreen").style.display = "block";
-		}
-
 		function levelComplete() {
 			// Save completion status
-			localStorage.setItem('level10_completed', 'true');
+			localStorage.setItem('level10_ultrafast_completed', 'true');
 			
-			// Prehraj RARE achievement zvuk pre boss level
-			play_boss_level_complete_sound();
+			// Prehraj achievement zvuky
+			play_level_complete_sound();
 			
 			// Stop timer
 			if (timerInterval) {
@@ -533,26 +438,24 @@
 			document.getElementById("solution2").style.display = "none";
 			document.getElementById("solution3").style.display = "none";
 			document.getElementById("solution4").style.display = "none";
-			document.getElementById("CurrentScore").style.display = "none";
+			document.getElementById("Score").style.display = "none";
+			document.getElementById("timer").style.display = "none";
+			document.getElementById("levelDescription").style.display = "block";
 			document.getElementById("startButton").style.display = "block";
-			document.getElementById("levels").style.display = "block";
 			document.body.style.backgroundColor = "white";
 			score = 0;
 			heart = 3;
-			timeLeft = 60;
+			timeLeft = 25;
 		}
 
 		function game() {
 			score = 0;
 			heart = 3;
 			document.getElementById("startButton").style.display = "none";
-			document.getElementById("levels").style.display = "none";
-			// Skry Highest Score po začatí hry
-			document.querySelector(".highest-score").style.display = "none";
+			document.getElementById("levelDescription").style.display = "none";
+			startTimer();
 			startGame();
 		}
 	</script>
-
-	 
- </body>
- </html>
+</body>
+</html>

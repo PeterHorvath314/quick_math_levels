@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Level 4 - Quick Math</title>
+	<title>Level 6 - Quick Math</title>
 	<style>
 		.button-style {
 			position: fixed;
@@ -77,11 +77,10 @@
 			/* Keep 2x2 grid on mobile, adjust sizing */
 			font-size: clamp(32px, 9vw, 72px);
 			padding: 2vh 3vw;
-			min-width: 140px;
+			min-width: 140px;	}
 		}
-	}
 
-	.score-style {
+		.score-style {
 			position: fixed;
 			top: 3vh;
 			left: 4vw;
@@ -191,10 +190,10 @@
 		font-size: clamp(32px, 5vw, 60px);
 		margin: 2vh 0;
 		">
-		Level 4
+		Level 6
 	</h1>
 
-	<button onclick="window.location.href='levels.html';" class="back-button">
+	<button onclick="window.location.href='../levels.html';" class="back-button">
 		← Back
 	</button>
 
@@ -213,7 +212,7 @@
 	</h1>
 
 	<p class="description-style" id="levelDescription">
-		Score 5 points within 45 seconds
+		Score 10 points within 30 seconds
 	</p>
 
 	<button onclick="game()" class="button-style" style="top: 50%; left: 50%;" id="startButton">
@@ -234,13 +233,13 @@
 		<div class="victory-message">
 			🎉 LEVEL COMPLETE! 🎉
 		</div>
-		<button onclick="window.location.href='level05.html';" class="next-level-button">
+		<button onclick="window.location.href='level07.html';" class="next-level-button">
 			Next Level →
 		</button>
 	</div>
 
 	<!-- Spoločný JavaScript súbor pre všetky levely -->
-	<script src="assets/common.js"></script>
+	<script src="../assets/common.js"></script>
 
 	<script>
 		let score = 0;
@@ -287,37 +286,26 @@
 			}, 1000);
 		}
 
-		function generate_number() {
-			return Math.floor(Math.random() * 99) + 1;
+
+
+		function generate_number(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
+
 
 		function generate_number2() {
 			return Math.floor(Math.random() * 4);
 		}
 
-		function generate_symbol() {
-			return Math.floor(Math.random() * 2);
-		}
 
 		function startGame() {
 			// ensure no solution button remains focused from previous question
 			document.querySelectorAll('.solution-button').forEach(b => b.blur && b.blur());
 			updateHearts();
-			const a = generate_number();
-			const b = generate_number();
-			const symbol = generate_symbol();
+			const a = generate_number(1, 5);
+			const b = generate_number(1, 5);
 			const where_is_correct_anwser = generate_number2();
-
-			if (symbol == 0) {
-				correctAnswer = a + b;
-			} else {
-				if ((a-b)>0){
-					correctAnswer = a - b;
-				}
-				else {
-					correctAnswer = b - a;
-				}
-			}
+			
 
 			const result = document.getElementById("result");
 			const solution1 = document.getElementById("solution1");
@@ -329,16 +317,11 @@
 			Score.textContent = "Score: " + score;
 			Score.style.display = "block";
 
-			if (symbol == 0) {
-				result.textContent = a + " + " + b + " = ";
-			} else {
-				if ((a-b)>0){
-					result.textContent = a + " - " + b + " = ";
-				}
-				else {
-					result.textContent = b + " - " + a + " = ";
-				}
-			}
+			correctAnswer = a * b;
+
+			result.textContent = a + " x " + b + " = ";
+			
+			
 			result.style.display = "block";
 
 			if (where_is_correct_anwser == 0) {
@@ -374,7 +357,7 @@
 
 		function is_solution(el) {
 			// remove focus from the button so it doesn't remain highlighted for next question
-			if (el && typeof el.blur === 'function') el.blur();
+			el.blur && el.blur();
 			const value = Number(el.textContent);
 
 			if (value === correctAnswer) {
@@ -382,7 +365,7 @@
 				play_correct_answer_sound(); // Prehraj zvuk správnej odpovede
 				
 				// Check if player won the level
-				if (score >= 5) {
+				if (score >= 10) {
 					levelComplete();
 					return;
 				}
@@ -393,9 +376,7 @@
 					startGame();
 				}, 500);
 			} else { 
-				heart--;
-				play_wrong_answer_sound(); // Prehraj zvuk nesprávnej odpovede
-				updateHearts();
+				heart--;				play_wrong_answer_sound(); // Prehraj zvuk nesprávnej odpovede				updateHearts();
 				document.body.style.backgroundColor = "rgb(255, 0, 0)";
 				
 				if (heart!=0){
@@ -416,7 +397,7 @@
 
 		function levelComplete() {
 			// Save completion status
-			localStorage.setItem('level04_completed', 'true');
+			localStorage.setItem('level06_completed', 'true');
 			
 			// Prehraj achievement zvuky
 			play_level_complete_sound();

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Level 5 - Quick Math</title>
+	<title>Level 10 - Quick Math</title>
 	<style>
 		.button-style {
 			position: fixed;
@@ -20,68 +20,69 @@
 
 		.solution-button {
 			display: none;
-		position: relative;
-		/* Slightly reduced to visually match the example (~8%) */
-		font-size: clamp(36px, 7.2vw, 108px);
-		padding: 1.1vh 2.2vw;
-		width: 100%;
-		min-width: 150px;
-		max-width: 440px;
-		border-radius: 18px;
-		border: 1px solid rgba(3, 48, 248, 0.18);
-		/* More pronounced modern blue tint */
-		background: linear-gradient(180deg, #fbfdff 0%, #eaf4ff 100%);
-		color: #041833;
-		font-weight: 700;
-		cursor: pointer;
-		text-align: center;
-		box-shadow: 0 14px 26px rgba(3, 48, 248, 0.08), inset 4px 0 12px rgba(3,48,248,0.03), inset 0 -2px 6px rgba(0,0,0,0.02);
-		/* removed transform/scale animations to keep UI stable */
-	}
+			position: relative;
+			/* Slightly reduced to visually match the example (~8%) */
+			font-size: clamp(36px, 7.2vw, 108px);
+			padding: 1.1vh 2.2vw;
+			width: 100%;
+			min-width: 150px;
+			max-width: 440px;
+			border-radius: 18px;
+			border: 1px solid rgba(3, 48, 248, 0.18);
+			/* More pronounced modern blue tint */
+			background: linear-gradient(180deg, #fbfdff 0%, #eaf4ff 100%);
+			color: #041833;
+			font-weight: 700;
+			cursor: pointer;
+			text-align: center;
+			box-shadow: 0 14px 26px rgba(3, 48, 248, 0.08), inset 4px 0 12px rgba(3,48,248,0.03), inset 0 -2px 6px rgba(0,0,0,0.02);
+			/* removed transform/scale animations to keep UI stable */
+		}
 
-	.solution-container {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(160px, 42vw));
-		gap: 2.4vh 3vw;
-		justify-content: center;
-		position: fixed;
-		left: 50%;
-		top: 48%;
-		transform: translateX(-50%);
-		width: 88vw;
-		max-width: 920px;
-		padding: 0 2vw;
-		box-sizing: border-box;
-	}
-
-	.solution-button:hover,
-	.solution-button:focus {
-		/* keep a stronger shadow and slightly brighter background, but no movement */
-		background: linear-gradient(180deg, #ffffff 0%, #dff0ff 100%);
-		box-shadow: 0 20px 38px rgba(3, 48, 248, 0.14), 0 0 0 6px rgba(3,48,248,0.06);
-		outline: none;
-	}
-
-	.solution-button:active {
-		/* no transform on active; keep immediate feedback visual via background only */
-		background: linear-gradient(180deg, #f8fbff 0%, #dbeeff 100%);
-	}
-
-	@media (max-width: 600px) {
 		.solution-container {
-		grid-template-columns: repeat(2, minmax(140px, 44vw));
-		gap: 2vh 2vw;
-		top: 47%;
-	}
-	.solution-button {
-		/* Keep 2x2 grid on mobile, adjust sizing */
-		font-size: clamp(32px, 9vw, 72px);
-		padding: 2vh 3vw;
-		min-width: 140px;	}
-}
-	.score-style {
-		position: fixed;
-		top: 3vh;
+			display: grid;
+			grid-template-columns: repeat(2, minmax(160px, 42vw));
+			gap: 2.4vh 3vw;
+			justify-content: center;
+			position: fixed;
+			left: 50%;
+			top: 48%;
+			transform: translateX(-50%);
+			width: 88vw;
+			max-width: 920px;
+			padding: 0 2vw;
+			box-sizing: border-box;
+		}
+
+		.solution-button:hover,
+		.solution-button:focus {
+			/* keep a stronger shadow and slightly brighter background, but no movement */
+			background: linear-gradient(180deg, #ffffff 0%, #dff0ff 100%);
+			box-shadow: 0 20px 38px rgba(3, 48, 248, 0.14), 0 0 0 6px rgba(3,48,248,0.06);
+			outline: none;
+		}
+
+		.solution-button:active {
+			/* no transform on active; keep immediate feedback visual via background only */
+			background: linear-gradient(180deg, #f8fbff 0%, #dbeeff 100%);
+		}
+
+		@media (max-width: 600px) {
+			.solution-container {
+			grid-template-columns: repeat(2, minmax(140px, 44vw));
+			gap: 2vh 2vw;
+			top: 47%;
+		}
+		.solution-button {
+			/* Keep 2x2 grid on mobile, adjust sizing */
+			font-size: clamp(32px, 9vw, 72px);
+			padding: 2vh 3vw;
+			min-width: 140px;	}
+		}
+
+		.score-style {
+			position: fixed;
+			top: 3vh;
 			left: 4vw;
 			font-size: clamp(24px, 4.5vw, 42px);
 			color: rgb(3, 48, 248);
@@ -189,10 +190,10 @@
 		font-size: clamp(32px, 5vw, 60px);
 		margin: 2vh 0;
 		">
-		Level 5
+		Level 10
 	</h1>
 
-	<button onclick="window.location.href='levels.html';" class="back-button">
+	<button onclick="window.location.href='../levels.html';" class="back-button">
 		← Back
 	</button>
 
@@ -211,7 +212,7 @@
 	</h1>
 
 	<p class="description-style" id="levelDescription">
-		Score 10 points within 60 seconds
+		Score 15 points within 60 seconds
 	</p>
 
 	<button onclick="game()" class="button-style" style="top: 50%; left: 50%;" id="startButton">
@@ -232,19 +233,19 @@
 		<div class="victory-message">
 			🎉 LEVEL COMPLETE! 🎉
 		</div>
-		<button onclick="window.location.href='level06.html';" class="next-level-button">
+		<button onclick="window.location.href='level10.html';" class="next-level-button">
 			Next Level →
 		</button>
 	</div>
 
 	<!-- Spoločný JavaScript súbor pre všetky levely -->
-	<script src="assets/common.js"></script>
+	<script src="../assets/common.js"></script>
 
 	<script>
 		let score = 0;
 		let heart = 3;
 		let correctAnswer = 0;
-		let timeLeft = 45;
+		let timeLeft = 60;
 		let timerInterval = null;
 
 		function updateHearts() {
@@ -271,7 +272,7 @@
 		}
 
 		function startTimer() {
-			timeLeft = 45;
+			timeLeft = 60;
 			document.getElementById("timer").style.display = "block";
 			updateTimer();
 			
@@ -285,28 +286,41 @@
 			}, 1000);
 		}
 
-		function generate_number() {
-			return Math.floor(Math.random() * (150 - 100 + 1)) + 100;
+
+
+		function generate_number(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
+
 
 		function generate_number2() {
 			return Math.floor(Math.random() * 4);
 		}
 
-		function generate_symbol() {
-			return Math.floor(Math.random() * 2);
-		}
+	
+		let symbol = 0;
 
-		function startGame() {		// ensure no solution button remains focused from previous question
-		document.querySelectorAll('.solution-button').forEach(b => b.blur && b.blur());			updateHearts();
-			const a = generate_number();
-			const b = generate_number();
-			const symbol = generate_symbol();
+		function startGame() {
+			// ensure no solution button remains focused from previous question
+			document.querySelectorAll('.solution-button').forEach(b => b.blur && b.blur());
+
+			updateHearts();
+		
+			symbol = (symbol + 1) % 4;
+			let a = 0
+			let b = 0
 			const where_is_correct_anwser = generate_number2();
 
+			//plus
 			if (symbol == 0) {
+				a = generate_number(1, 99);
+				 b = generate_number(2, 99);
 				correctAnswer = a + b;
-			} else {
+			} 
+			//minus
+			if (symbol == 1) {
+				 a = generate_number(1, 99);
+				 b = generate_number(2, 99);
 				if ((a-b)>0){
 					correctAnswer = a - b;
 				}
@@ -314,6 +328,23 @@
 					correctAnswer = b - a;
 				}
 			}
+			//krat
+			if (symbol == 2){
+				 a = generate_number(1, 9);
+				 b = generate_number(2, 9);
+
+				correctAnswer = a * b;
+			}
+			//
+			if (symbol == 3){
+				 a = generate_number(11, 19);
+				 b = generate_number(2, 4);
+
+				correctAnswer = a * b;
+			}
+
+			
+			
 
 			const result = document.getElementById("result");
 			const solution1 = document.getElementById("solution1");
@@ -325,16 +356,26 @@
 			Score.textContent = "Score: " + score;
 			Score.style.display = "block";
 
+
 			if (symbol == 0) {
+
 				result.textContent = a + " + " + b + " = ";
-			} else {
-				if ((a-b)>0){
-					result.textContent = a + " - " + b + " = ";
-				}
-				else {
-					result.textContent = b + " - " + a + " = ";
-				}
+
+			} else if (symbol == 1) {
+
+				result.textContent = Math.max(a,b) + " - " + Math.min(a,b) + " = ";
+
+			} else if (symbol == 2) {
+
+				result.textContent = a + " x " + b + " = ";
+
+			} else if (symbol == 3) {
+
+				result.textContent = a + " x " + b + " = ";
+
 			}
+
+			
 			result.style.display = "block";
 
 			if (where_is_correct_anwser == 0) {
@@ -369,14 +410,16 @@
 		}
 
 		function is_solution(el) {
-		// remove focus from the button so it doesn't remain highlighted for next question
-		el.blur && el.blur();	const value = Number(el.textContent);
+			// remove focus from the button so it doesn't remain highlighted for next question
+			el.blur && el.blur();
+			const value = Number(el.textContent);
+
 			if (value === correctAnswer) {
 				score++;
 				play_correct_answer_sound(); // Prehraj zvuk správnej odpovede
 				
 				// Check if player won the level
-				if (score >= 10) {
+				if (score >= 15) {
 					levelComplete();
 					return;
 				}
@@ -385,7 +428,7 @@
 				setTimeout(() => {
 					document.body.style.backgroundColor = "white";
 					startGame();
-				}, 500);
+				}, 200);
 			} else { 
 				heart--;
 				play_wrong_answer_sound(); // Prehraj zvuk nesprávnej odpovede
@@ -410,7 +453,7 @@
 
 		function levelComplete() {
 			// Save completion status
-			localStorage.setItem('level05_completed', 'true');
+			localStorage.setItem('level10_completed', 'true');
 			
 			// Prehraj RARE achievement zvuk pre boss level
 			play_boss_level_complete_sound();
@@ -456,7 +499,7 @@
 			document.body.style.backgroundColor = "white";
 			score = 0;
 			heart = 3;
-			timeLeft = 45;
+			timeLeft = 60;
 		}
 
 		function game() {

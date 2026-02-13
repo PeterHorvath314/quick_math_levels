@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Level 9 - Quick Math</title>
+	<title>Level 6 - Quick Math</title>
 	<style>
 		.button-style {
 			position: fixed;
@@ -190,10 +190,10 @@
 		font-size: clamp(32px, 5vw, 60px);
 		margin: 2vh 0;
 		">
-		Level 9
+		Level 8
 	</h1>
 
-	<button onclick="window.location.href='levels.html';" class="back-button">
+	<button onclick="window.location.href='../levels-ultra-fast.html';" class="back-button">
 		← Back
 	</button>
 
@@ -212,7 +212,7 @@
 	</h1>
 
 	<p class="description-style" id="levelDescription">
-		Score 5 points within 25 seconds
+		Score 10 points within 25 seconds
 	</p>
 
 	<button onclick="game()" class="button-style" style="top: 50%; left: 50%;" id="startButton">
@@ -233,13 +233,13 @@
 		<div class="victory-message">
 			🎉 LEVEL COMPLETE! 🎉
 		</div>
-		<button onclick="window.location.href='level10.html';" class="next-level-button">
+		<button onclick="window.location.href='level07.html';" class="next-level-button">
 			Next Level →
 		</button>
 	</div>
 
 	<!-- Spoločný JavaScript súbor pre všetky levely -->
-	<script src="assets/common.js"></script>
+	<script src="../assets/common.js"></script>
 
 	<script>
 		let score = 0;
@@ -302,8 +302,8 @@
 			// ensure no solution button remains focused from previous question
 			document.querySelectorAll('.solution-button').forEach(b => b.blur && b.blur());
 			updateHearts();
-			const a = generate_number(11, 19);
-			const b = generate_number(2, 4);
+			const a = generate_number(6, 10);
+			const b = generate_number(6, 10);
 			const where_is_correct_anwser = generate_number2();
 			
 
@@ -365,7 +365,7 @@
 				play_correct_answer_sound(); // Prehraj zvuk správnej odpovede
 				
 				// Check if player won the level
-				if (score >= 5) {
+				if (score >= 10) {
 					levelComplete();
 					return;
 				}
@@ -399,7 +399,7 @@
 
 		function levelComplete() {
 			// Save completion status
-			localStorage.setItem('level09_completed', 'true');
+			localStorage.setItem('level06_ultrafast_completed', 'true');
 			
 			// Prehraj achievement zvuky
 			play_level_complete_sound();

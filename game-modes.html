@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Game Modes - Quick Math</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			padding: 20px;
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+			background: white;
+			min-height: 100vh;
+			overflow-x: hidden;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.back-button {
+			position: fixed;
+			top: 3vh;
+			right: 4vw;
+			font-size: clamp(20px, 3vw, 32px);
+			padding: 1vh 2vw;
+			border-radius: 15px;
+			border: none;
+			background: #0330f8;
+			color: white;
+			cursor: pointer;
+			font-weight: bold;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: clamp(32px, 5vw, 60px);
+			margin-bottom: 5vh;
+			color: #041833;
+			font-weight: bold;
+		}
+
+		.grid-container {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-template-rows: repeat(4, 1fr);
+			gap: clamp(8px, 1.5vw, 20px);
+			width: min(92vw, 800px);
+			max-width: 800px;
+			aspect-ratio: 1;
+			margin: 0 auto;
+			padding: 10px;
+		}
+
+		.mode-button {
+			font-size: clamp(18px, 3vw, 36px);
+			padding: 0;
+			border-radius: clamp(10px, 1.5vw, 18px);
+			border: none;
+			background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+			color: #041833;
+			cursor: pointer;
+			font-weight: bold;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+			transition: all 0.2s ease;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			min-height: 0;
+			width: 100%;
+			height: 100%;
+		}
+
+		.mode-button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+		}
+
+		.mode-button:active {
+			transform: translateY(0);
+		}
+
+		@media (max-width: 480px) {
+			h1 {
+				font-size: 22px;
+			}
+
+			.grid-container {
+				width: 96vw;
+				gap: 6px;
+				padding: 5px;
+			}
+
+			.mode-button {
+				font-size: 14px;
+				border-radius: 8px;
+			}
+		}
+
+		@media (min-width: 481px) and (max-width: 768px) {
+			.grid-container {
+				width: 94vw;
+				gap: 10px;
+			}
+
+			h1 {
+				font-size: 28px;
+			}
+		}
+
+		@media (max-width: 900px) {
+			.grid-container {
+				gap: 10px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<h1>Choose Game Mode</h1>
+
+	<button onclick="window.location.href='index.html';" class="back-button">
+		← Back
+	</button>
+
+	<div class="grid-container">
+		<button onclick="window.location.href='levels.html';" class="mode-button" style="background: linear-gradient(135deg, #00c853 0%, #00e676 100%); color: white; flex-direction: column; position: relative;">
+			<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.5), 0 2px 6px rgba(0,0,0,0.3);">Beginner</div>
+			<div style="font-size: 1.2em; color: #ff9800; font-weight: 900; position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); text-shadow: 0 0 10px rgba(255, 152, 0, 0.8), 0 0 20px rgba(255, 152, 0, 0.5), 0 2px 4px rgba(0,0,0,0.3); letter-spacing: 1px; white-space: nowrap;">+ − ×</div>
+		</button>
+		<button onclick="window.location.href='levels-ultra-fast.html';" class="mode-button" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white;">
+			<span style="text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.5), 0 2px 6px rgba(0,0,0,0.3);">Ultra Fast</span>
+		</button>
+		<!-- Ostatné tlačidlá budú pridané neskôr -->
+	</div>
+</body>
+</html>

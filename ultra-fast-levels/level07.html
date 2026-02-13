@@ -190,10 +190,10 @@
 		font-size: clamp(32px, 5vw, 60px);
 		margin: 2vh 0;
 		">
-		Level 7
+		Level 8
 	</h1>
 
-	<button onclick="window.location.href='levels.html';" class="back-button">
+	<button onclick="window.location.href='../levels-ultra-fast.html';" class="back-button">
 		← Back
 	</button>
 
@@ -212,7 +212,7 @@
 	</h1>
 
 	<p class="description-style" id="levelDescription">
-		Score 10 points within 35 seconds
+		Score 10 points within 25 seconds
 	</p>
 
 	<button onclick="game()" class="button-style" style="top: 50%; left: 50%;" id="startButton">
@@ -239,13 +239,13 @@
 	</div>
 
 	<!-- Spoločný JavaScript súbor pre všetky levely -->
-	<script src="assets/common.js"></script>
+	<script src="../assets/common.js"></script>
 
 	<script>
 		let score = 0;
 		let heart = 3;
 		let correctAnswer = 0;
-		let timeLeft = 35;
+		let timeLeft = 25;
 		let timerInterval = null;
 
 		function updateHearts() {
@@ -272,7 +272,7 @@
 		}
 
 		function startTimer() {
-			timeLeft = 35;
+			timeLeft = 25;
 			document.getElementById("timer").style.display = "block";
 			updateTimer();
 			
@@ -302,8 +302,8 @@
 			// ensure no solution button remains focused from previous question
 			document.querySelectorAll('.solution-button').forEach(b => b.blur && b.blur());
 			updateHearts();
-			const a = generate_number(5, 8);
-			const b = generate_number(5, 8);
+			const a = generate_number(6, 10);
+			const b = generate_number(6, 10);
 			const where_is_correct_anwser = generate_number2();
 			
 
@@ -374,9 +374,11 @@
 				setTimeout(() => {
 					document.body.style.backgroundColor = "white";
 					startGame();
-				}, 500);
+				}, 200);
 			} else { 
-				heart--;				play_wrong_answer_sound(); // Prehraj zvuk nesprávnej odpovede				updateHearts();
+				heart--;
+				play_wrong_answer_sound(); // Prehraj zvuk nesprávnej odpovede
+				updateHearts();
 				document.body.style.backgroundColor = "rgb(255, 0, 0)";
 				
 				if (heart!=0){
@@ -397,7 +399,7 @@
 
 		function levelComplete() {
 			// Save completion status
-			localStorage.setItem('level07_completed', 'true');
+			localStorage.setItem('level07_ultrafast_completed', 'true');
 			
 			// Prehraj achievement zvuky
 			play_level_complete_sound();
@@ -443,7 +445,7 @@
 			document.body.style.backgroundColor = "white";
 			score = 0;
 			heart = 3;
-			timeLeft = 35;
+			timeLeft = 25;
 		}
 
 		function game() {

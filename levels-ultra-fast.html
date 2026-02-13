@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Levels - Quick Math</title>
+	<title>Ultra Fast Levels - Quick Math</title>
 	<style>
 
 		.back-button {
@@ -14,7 +14,7 @@
 			padding: 1vh 2vw;
 			border-radius: 15px;
 			border: none;
-			background: #0330f8;
+			background: #8b5cf6;
 			color: white;
 			cursor: pointer;
 			font-weight: bold;
@@ -50,7 +50,7 @@
 			padding: 4vh 4vw;
 			border-radius: 20px;
 			border: none;
-			background: #0330f8;
+			background: #8b5cf6;
 			color: white;
 			cursor: pointer;
 			font-weight: bold;
@@ -62,7 +62,7 @@
 			padding: 4vh 4vw;
 			border-radius: 20px;
 			border: none;
-			background: #b527f7;
+			background: #6366f1;
 			color: white;
 			cursor: pointer;
 			font-weight: bold;
@@ -70,12 +70,12 @@
 		}
 
 		.button-style:hover {
-			background: #0246ff;
+			background: #7c3aed;
 			transform: scale(1.05);
 		}
 
 		.button-style_boss_level:hover {
-			background: #8b1dbe;
+			background: #4f46e5;
 			transform: scale(1.05);
 		}
 
@@ -94,11 +94,11 @@
 
 
 		.level-completed_boss_level {
-			background: #b527f7 !important;
+			background: #6366f1 !important;
 		}
 
 		.level-completed_boss_level:hover {
-			background: #8b1dbe !important;
+			background: #4f46e5 !important;
 		}
 
 
@@ -127,9 +127,9 @@
 	</style>
 </head>
 <body>
-	<h1>Levels</h1>
+	<h1>Ultra Fast Levels</h1>
 
-		<button onclick="window.location.href='index.html';" class="back-button">
+		<button onclick="window.location.href='game-modes.html';" class="back-button">
 			← Back
 		</button>
 		
@@ -183,22 +183,22 @@
 
   function updateLevelProgression() {
     const levels = [
-      {id: 'level01', url: 'beginner-levels/level01.html'},
-      {id: 'level02', url: 'beginner-levels/level02.html'},
-      {id: 'level03', url: 'beginner-levels/level03.html'},
-      {id: 'level04', url: 'beginner-levels/level04.html'},
-      {id: 'level05', url: 'beginner-levels/level05.html'},
-      {id: 'level06', url: 'beginner-levels/level06.html'},
-      {id: 'level07', url: 'beginner-levels/level07.html'},
-      {id: 'level08', url: 'beginner-levels/level08.html'},
-      {id: 'level09', url: 'beginner-levels/level09.html'},
-      {id: 'level10', url: 'beginner-levels/level10.html'}
+      {id: 'level01', url: 'ultra-fast-levels/level01.html'},
+      {id: 'level02', url: 'ultra-fast-levels/level02.html'},
+      {id: 'level03', url: 'ultra-fast-levels/level03.html'},
+      {id: 'level04', url: 'ultra-fast-levels/level04.html'},
+      {id: 'level05', url: 'ultra-fast-levels/level05.html'},
+      {id: 'level06', url: 'ultra-fast-levels/level06.html'},
+      {id: 'level07', url: 'ultra-fast-levels/level07.html'},
+      {id: 'level08', url: 'ultra-fast-levels/level08.html'},
+      {id: 'level09', url: 'ultra-fast-levels/level09.html'},
+      {id: 'level10', url: 'ultra-fast-levels/level10.html'}
     ];
 
     let firstUncompletedIndex = -1;
 
     for (let i = 0; i < levels.length; i++) {
-      const completed = localStorage.getItem(levels[i].id + '_completed') === 'true';
+      const completed = localStorage.getItem(levels[i].id + '_ultrafast_completed') === 'true';
       if (!completed) { firstUncompletedIndex = i; break; }
     }
 

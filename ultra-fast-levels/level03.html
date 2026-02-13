@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Level 10 - Quick Math</title>
+	<title>Level 3 - Quick Math</title>
 	<style>
 		.button-style {
 			position: fixed;
@@ -190,10 +190,10 @@
 		font-size: clamp(32px, 5vw, 60px);
 		margin: 2vh 0;
 		">
-		Level 10
+		Level 8
 	</h1>
 
-	<button onclick="window.location.href='levels.html';" class="back-button">
+	<button onclick="window.location.href='../levels-ultra-fast.html';" class="back-button">
 		← Back
 	</button>
 
@@ -212,7 +212,7 @@
 	</h1>
 
 	<p class="description-style" id="levelDescription">
-		Score 15 points within 60 seconds
+		Score 10 points within 25 seconds
 	</p>
 
 	<button onclick="game()" class="button-style" style="top: 50%; left: 50%;" id="startButton">
@@ -233,19 +233,19 @@
 		<div class="victory-message">
 			🎉 LEVEL COMPLETE! 🎉
 		</div>
-		<button onclick="window.location.href='level10.html';" class="next-level-button">
+		<button onclick="window.location.href='level04.html';" class="next-level-button">
 			Next Level →
 		</button>
 	</div>
 
 	<!-- Spoločný JavaScript súbor pre všetky levely -->
-	<script src="assets/common.js"></script>
+	<script src="../assets/common.js"></script>
 
 	<script>
 		let score = 0;
 		let heart = 3;
 		let correctAnswer = 0;
-		let timeLeft = 60;
+		let timeLeft = 25;
 		let timerInterval = null;
 
 		function updateHearts() {
@@ -272,7 +272,7 @@
 		}
 
 		function startTimer() {
-			timeLeft = 60;
+			timeLeft = 25;
 			document.getElementById("timer").style.display = "block";
 			updateTimer();
 			
@@ -297,53 +297,14 @@
 			return Math.floor(Math.random() * 4);
 		}
 
-	
-		let symbol = 0;
 
 		function startGame() {
 			// ensure no solution button remains focused from previous question
 			document.querySelectorAll('.solution-button').forEach(b => b.blur && b.blur());
-
 			updateHearts();
-		
-			symbol = (symbol + 1) % 4;
-			let a = 0
-			let b = 0
+			const a = generate_number(6, 10);
+			const b = generate_number(6, 10);
 			const where_is_correct_anwser = generate_number2();
-
-			//plus
-			if (symbol == 0) {
-				a = generate_number(1, 99);
-				 b = generate_number(2, 99);
-				correctAnswer = a + b;
-			} 
-			//minus
-			if (symbol == 1) {
-				 a = generate_number(1, 99);
-				 b = generate_number(2, 99);
-				if ((a-b)>0){
-					correctAnswer = a - b;
-				}
-				else {
-					correctAnswer = b - a;
-				}
-			}
-			//krat
-			if (symbol == 2){
-				 a = generate_number(1, 9);
-				 b = generate_number(2, 9);
-
-				correctAnswer = a * b;
-			}
-			//
-			if (symbol == 3){
-				 a = generate_number(11, 19);
-				 b = generate_number(2, 4);
-
-				correctAnswer = a * b;
-			}
-
-			
 			
 
 			const result = document.getElementById("result");
@@ -356,25 +317,10 @@
 			Score.textContent = "Score: " + score;
 			Score.style.display = "block";
 
+			correctAnswer = a * b;
 
-			if (symbol == 0) {
-
-				result.textContent = a + " + " + b + " = ";
-
-			} else if (symbol == 1) {
-
-				result.textContent = Math.max(a,b) + " - " + Math.min(a,b) + " = ";
-
-			} else if (symbol == 2) {
-
-				result.textContent = a + " x " + b + " = ";
-
-			} else if (symbol == 3) {
-
-				result.textContent = a + " x " + b + " = ";
-
-			}
-
+			result.textContent = a + " x " + b + " = ";
+			
 			
 			result.style.display = "block";
 
@@ -419,7 +365,7 @@
 				play_correct_answer_sound(); // Prehraj zvuk správnej odpovede
 				
 				// Check if player won the level
-				if (score >= 15) {
+				if (score >= 10) {
 					levelComplete();
 					return;
 				}
@@ -453,10 +399,10 @@
 
 		function levelComplete() {
 			// Save completion status
-			localStorage.setItem('level10_completed', 'true');
+			localStorage.setItem('level03_ultrafast_completed', 'true');
 			
-			// Prehraj RARE achievement zvuk pre boss level
-			play_boss_level_complete_sound();
+			// Prehraj achievement zvuky
+			play_level_complete_sound();
 			
 			// Stop timer
 			if (timerInterval) {
@@ -499,7 +445,7 @@
 			document.body.style.backgroundColor = "white";
 			score = 0;
 			heart = 3;
-			timeLeft = 60;
+			timeLeft = 25;
 		}
 
 		function game() {

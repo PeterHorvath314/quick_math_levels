@@ -132,7 +132,7 @@ function play_wrong_answer_sound() {
 	try {
 		// Klonujeme zvuk pre možnosť rýchleho opakovania
 		const wrongSound = wrongBuzzer.cloneNode();
-		wrongSound.volume = 0.4;
+		wrongSound.volume = 0.1;
 		
 		wrongSound.play().catch(error => {
 			console.log('Wrong answer sound playback failed:', error);

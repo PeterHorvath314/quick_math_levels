@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Level 2 - Quick Math</title>
+	<title>Level 3 - Quick Math</title>
 	<style>
 		.button-style {
 			position: fixed;
@@ -77,9 +77,11 @@
 			/* Keep 2x2 grid on mobile, adjust sizing */
 			font-size: clamp(32px, 9vw, 72px);
 			padding: 2vh 3vw;
-			min-width: 140px;	}
-}
-		.score-style {
+			min-width: 140px;
+		}
+	}
+
+	.score-style {
 			position: fixed;
 			top: 3vh;
 			left: 4vw;
@@ -189,10 +191,10 @@
 		font-size: clamp(32px, 5vw, 60px);
 		margin: 2vh 0;
 		">
-		Level 2
+		Level 3
 	</h1>
 
-	<button onclick="window.location.href='levels.html';" class="back-button">
+	<button onclick="window.location.href='../levels.html';" class="back-button">
 		← Back
 	</button>
 
@@ -211,7 +213,7 @@
 	</h1>
 
 	<p class="description-style" id="levelDescription">
-		Score 10 points within 30 seconds
+		Score 5 points within 30 seconds
 	</p>
 
 	<button onclick="game()" class="button-style" style="top: 50%; left: 50%;" id="startButton">
@@ -232,13 +234,13 @@
 		<div class="victory-message">
 			🎉 LEVEL COMPLETE! 🎉
 		</div>
-		<button onclick="window.location.href='level03.html';" class="next-level-button">
+		<button onclick="window.location.href='level04.html';" class="next-level-button">
 			Next Level →
 		</button>
 	</div>
 
 	<!-- Spoločný JavaScript súbor pre všetky levely -->
-	<script src="assets/common.js"></script>
+	<script src="../assets/common.js"></script>
 
 	<script>
 		let score = 0;
@@ -286,7 +288,7 @@
 		}
 
 		function generate_number() {
-			return Math.floor(Math.random() * 4) + 1;
+			return Math.floor(Math.random() * 19) + 1;
 		}
 
 		function generate_number2() {
@@ -298,6 +300,8 @@
 		}
 
 		function startGame() {
+			// ensure no solution button remains focused from previous question
+			document.querySelectorAll('.solution-button').forEach(b => b.blur && b.blur());
 			updateHearts();
 			const a = generate_number();
 			const b = generate_number();
@@ -369,6 +373,8 @@
 		}
 
 		function is_solution(el) {
+			// remove focus from the button so it doesn't remain highlighted for next question
+			if (el && typeof el.blur === 'function') el.blur();
 			const value = Number(el.textContent);
 
 			if (value === correctAnswer) {
@@ -376,7 +382,7 @@
 				play_correct_answer_sound(); // Prehraj zvuk správnej odpovede
 				
 				// Check if player won the level
-				if (score >= 10) {
+				if (score >= 5) {
 					levelComplete();
 					return;
 				}
@@ -410,7 +416,7 @@
 
 		function levelComplete() {
 			// Save completion status
-			localStorage.setItem('level02_completed', 'true');
+			localStorage.setItem('level03_completed', 'true');
 			
 			// Prehraj achievement zvuky
 			play_level_complete_sound();

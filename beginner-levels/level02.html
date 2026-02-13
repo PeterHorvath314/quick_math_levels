@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Level 6 - Quick Math</title>
+	<title>Level 2 - Quick Math</title>
 	<style>
 		.button-style {
 			position: fixed;
@@ -78,8 +78,7 @@
 			font-size: clamp(32px, 9vw, 72px);
 			padding: 2vh 3vw;
 			min-width: 140px;	}
-		}
-
+}
 		.score-style {
 			position: fixed;
 			top: 3vh;
@@ -190,10 +189,10 @@
 		font-size: clamp(32px, 5vw, 60px);
 		margin: 2vh 0;
 		">
-		Level 6
+		Level 2
 	</h1>
 
-	<button onclick="window.location.href='levels.html';" class="back-button">
+	<button onclick="window.location.href='../levels.html';" class="back-button">
 		← Back
 	</button>
 
@@ -233,19 +232,19 @@
 		<div class="victory-message">
 			🎉 LEVEL COMPLETE! 🎉
 		</div>
-		<button onclick="window.location.href='level07.html';" class="next-level-button">
+		<button onclick="window.location.href='level03.html';" class="next-level-button">
 			Next Level →
 		</button>
 	</div>
 
 	<!-- Spoločný JavaScript súbor pre všetky levely -->
-	<script src="assets/common.js"></script>
+	<script src="../assets/common.js"></script>
 
 	<script>
 		let score = 0;
 		let heart = 3;
 		let correctAnswer = 0;
-		let timeLeft = 45;
+		let timeLeft = 30;
 		let timerInterval = null;
 
 		function updateHearts() {
@@ -272,7 +271,7 @@
 		}
 
 		function startTimer() {
-			timeLeft = 45;
+			timeLeft = 30;
 			document.getElementById("timer").style.display = "block";
 			updateTimer();
 			
@@ -286,26 +285,35 @@
 			}, 1000);
 		}
 
-
-
-		function generate_number(min, max) {
-			return Math.floor(Math.random() * (max - min + 1)) + min;
+		function generate_number() {
+			return Math.floor(Math.random() * 4) + 1;
 		}
-
 
 		function generate_number2() {
 			return Math.floor(Math.random() * 4);
 		}
 
+		function generate_symbol() {
+			return Math.floor(Math.random() * 2);
+		}
 
 		function startGame() {
-			// ensure no solution button remains focused from previous question
-			document.querySelectorAll('.solution-button').forEach(b => b.blur && b.blur());
 			updateHearts();
-			const a = generate_number(1, 5);
-			const b = generate_number(1, 5);
+			const a = generate_number();
+			const b = generate_number();
+			const symbol = generate_symbol();
 			const where_is_correct_anwser = generate_number2();
-			
+
+			if (symbol == 0) {
+				correctAnswer = a + b;
+			} else {
+				if ((a-b)>0){
+					correctAnswer = a - b;
+				}
+				else {
+					correctAnswer = b - a;
+				}
+			}
 
 			const result = document.getElementById("result");
 			const solution1 = document.getElementById("solution1");
@@ -317,11 +325,16 @@
 			Score.textContent = "Score: " + score;
 			Score.style.display = "block";
 
-			correctAnswer = a * b;
-
-			result.textContent = a + " x " + b + " = ";
-			
-			
+			if (symbol == 0) {
+				result.textContent = a + " + " + b + " = ";
+			} else {
+				if ((a-b)>0){
+					result.textContent = a + " - " + b + " = ";
+				}
+				else {
+					result.textContent = b + " - " + a + " = ";
+				}
+			}
 			result.style.display = "block";
 
 			if (where_is_correct_anwser == 0) {
@@ -356,8 +369,6 @@
 		}
 
 		function is_solution(el) {
-			// remove focus from the button so it doesn't remain highlighted for next question
-			el.blur && el.blur();
 			const value = Number(el.textContent);
 
 			if (value === correctAnswer) {
@@ -376,7 +387,9 @@
 					startGame();
 				}, 500);
 			} else { 
-				heart--;				play_wrong_answer_sound(); // Prehraj zvuk nesprávnej odpovede				updateHearts();
+				heart--;
+				play_wrong_answer_sound(); // Prehraj zvuk nesprávnej odpovede
+				updateHearts();
 				document.body.style.backgroundColor = "rgb(255, 0, 0)";
 				
 				if (heart!=0){
@@ -397,7 +410,7 @@
 
 		function levelComplete() {
 			// Save completion status
-			localStorage.setItem('level06_completed', 'true');
+			localStorage.setItem('level02_completed', 'true');
 			
 			// Prehraj achievement zvuky
 			play_level_complete_sound();
@@ -443,7 +456,7 @@
 			document.body.style.backgroundColor = "white";
 			score = 0;
 			heart = 3;
-			timeLeft = 45;
+			timeLeft = 30;
 		}
 
 		function game() {
