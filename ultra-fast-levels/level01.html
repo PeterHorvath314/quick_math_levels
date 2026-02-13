@@ -134,14 +134,27 @@
 			left: 50%;
 			transform: translate(-50%, -50%);
 			font-size: clamp(18px, 3.5vw, 28px);
-			color: rgb(50, 50, 50);
+			color: white;
 			margin: 0;
 			text-align: center;
 			font-weight: bold;
 			padding: 1.5vh 3vw;
-			border: 1px solid black;
+			border: 2px solid #8b5cf6;
 			border-radius: 10px;
-			background-color: rgb(220, 220, 220);
+			background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+			box-shadow: 0 0 20px rgba(131, 92, 246, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.1);
+			animation: speedPulse 1.5s ease-in-out infinite;
+		}
+
+		@keyframes speedPulse {
+			0%, 100% {
+				box-shadow: 0 0 20px rgba(131, 92, 246, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.1);
+				transform: translate(-50%, -50%) scale(1);
+			}
+			50% {
+				box-shadow: 0 0 40px rgba(131, 92, 246, 1), inset 0 0 20px rgba(255, 255, 255, 0.2);
+				transform: translate(-50%, -50%) scale(1.02);
+			}
 		}
 
 		.description-style {
@@ -206,7 +219,7 @@
 		font-size: clamp(32px, 5vw, 60px);
 		margin: 2vh 0;
 		">
-		Level 8
+		Level 1
 	</h1>
 
 	<button onclick="window.location.href='../levels-ultra-fast.html';" class="back-button">
@@ -228,7 +241,7 @@
 	</h1>
 
 	<p class="description-title-style" id="levelTitle">
-		🚀 Coming Soon 🚀
+		⚡ ULTRA FAST ⚡
 	</p>
 
 	<p class="description-style" id="levelDescription">

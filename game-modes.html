@@ -85,6 +85,55 @@
 			transform: translateY(0);
 		}
 
+		.ultra-fast-button {
+			animation: ultraFastPulse 1.5s ease-in-out infinite;
+			box-shadow: 0 0 30px rgba(131, 92, 246, 0.6) !important;
+		}
+
+		.ultra-fast-button:hover {
+			box-shadow: 0 0 50px rgba(131, 92, 246, 0.9) !important;
+		}
+
+		.beginner-button {
+			animation: beginnerPulse 1.5s ease-in-out infinite;
+			box-shadow: 0 0 30px rgba(0, 200, 83, 0.6) !important;
+		}
+
+		.beginner-button:hover {
+			box-shadow: 0 0 50px rgba(0, 200, 83, 0.9) !important;
+		}
+
+		@keyframes ultraFastPulse {
+			0%, 100% {
+				box-shadow: 0 4px 8px rgba(131, 92, 246, 0.3), 0 0 20px rgba(131, 92, 246, 0.4), 0 0 40px rgba(131, 92, 246, 0.2);
+				transform: translateY(-2px) scale(1);
+			}
+			50% {
+				box-shadow: 0 8px 16px rgba(131, 92, 246, 0.8), 0 0 50px rgba(131, 92, 246, 1), 0 0 100px rgba(131, 92, 246, 0.7);
+				transform: translateY(-2px) scale(1.02);
+			}
+		}
+
+		@keyframes beginnerPulse {
+			0%, 100% {
+				box-shadow: 0 4px 8px rgba(0, 200, 83, 0.3), 0 0 20px rgba(0, 200, 83, 0.4), 0 0 40px rgba(0, 200, 83, 0.2);
+				transform: translateY(-2px) scale(1);
+			}
+			50% {
+				box-shadow: 0 8px 16px rgba(0, 200, 83, 0.8), 0 0 50px rgba(0, 200, 83, 1), 0 0 100px rgba(0, 200, 83, 0.7);
+				transform: translateY(-2px) scale(1.02);
+			}
+		}
+
+		@keyframes symbolGlow {
+			0%, 100% {
+				text-shadow: 0 0 10px rgba(255, 152, 0, 0.8), 0 0 20px rgba(255, 152, 0, 0.5), 0 2px 4px rgba(0,0,0,0.3);
+			}
+			50% {
+				text-shadow: 0 0 20px rgba(255, 152, 0, 1), 0 0 40px rgba(255, 152, 0, 0.8), 0 0 60px rgba(255, 152, 0, 0.5), 0 2px 4px rgba(0,0,0,0.3);
+			}
+		}
+
 		@media (max-width: 480px) {
 			h1 {
 				font-size: 22px;
@@ -128,13 +177,14 @@
 	</button>
 
 	<div class="grid-container">
-		<button onclick="window.location.href='levels.html';" class="mode-button" style="background: linear-gradient(135deg, #00c853 0%, #00e676 100%); color: white; flex-direction: column; position: relative;">
-			<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.5), 0 2px 6px rgba(0,0,0,0.3);">Beginner</div>
-			<div style="font-size: 1.2em; color: #ff9800; font-weight: 900; position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); text-shadow: 0 0 10px rgba(255, 152, 0, 0.8), 0 0 20px rgba(255, 152, 0, 0.5), 0 2px 4px rgba(0,0,0,0.3); letter-spacing: 1px; white-space: nowrap;">+ − ×</div>
+	<button onclick="window.location.href='levels.html';" class="mode-button beginner-button" style="background: radial-gradient(circle at center, #00e676 0%, #00c853 100%); color: white; flex-direction: column; position: relative;">
+			<div style="position: absolute; top: 49%; left: 50%; transform: translate(-50%, -50%); text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.5), 0 2px 6px rgba(0,0,0,0.3); font-size: 1.2em;">Beginer</div>
+		<div style="font-size: 1.2em; color: #ff9800; font-weight: 900; position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); letter-spacing: 1px; white-space: nowrap; animation: symbolGlow 1.5s ease-in-out infinite;">+ − ×</div>
 		</button>
-		<button class="mode-button" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; pointer-events: none; position: relative;">
-			<span style="text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.5), 0 2px 6px rgba(0,0,0,0.3);">Ultra Fast</span>
-			<span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(45deg); font-size: 18px; color: red; font-weight: bold; white-space: nowrap; pointer-events: auto; opacity: 0.5;">coming soon</span>
+		<button onclick="window.location.href='levels-ultra-fast.html';" class="mode-button ultra-fast-button" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; position: relative; flex-direction: column;">
+			<div style="position: absolute; top: 49%; left: 50%; transform: translate(-50%, -50%); text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.5), 0 2px 6px rgba(0,0,0,0.3); font-size: 1.2em;">ULTRA FAST</div>
+			<div style="position: absolute; top: 49%; left: 87%; transform: translate(-50%, -50%); text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.5), 0 2px 6px rgba(0,0,0,0.3); font-size: 0.9em;">⚡</div>
+			<div style="position: absolute; top: 49%; left: 15%; transform: translate(-50%, -50%); text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.5), 0 2px 6px rgba(0,0,0,0.3); font-size: 0.9em;">⚡</div>
 		</button>
 		<!-- Ostatné tlačidlá budú pridané neskôr -->
 	</div>
