@@ -128,6 +128,22 @@
 			display: none;
 		}
 
+		.description-title-style {
+			position: fixed;
+			top: 22%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: clamp(18px, 3.5vw, 28px);
+			color: rgb(50, 50, 50);
+			margin: 0;
+			text-align: center;
+			font-weight: bold;
+			padding: 1.5vh 3vw;
+			border: 1px solid black;
+			border-radius: 10px;
+			background-color: rgb(220, 220, 220);
+		}
+
 		.description-style {
 			position: fixed;
 			top: 35%;
@@ -210,6 +226,10 @@
 	<h1 class="timer-style" id="timer">
 		⏱️ 30
 	</h1>
+
+	<p class="description-title-style" id="levelTitle">
+		Malá nasobilka, v celkom rychlom tempe
+	</p>
 
 	<p class="description-style" id="levelDescription">
 		Score 10 points within 25 seconds
@@ -440,6 +460,7 @@
 			document.getElementById("solution4").style.display = "none";
 			document.getElementById("Score").style.display = "none";
 			document.getElementById("timer").style.display = "none";
+			document.getElementById("levelTitle").style.display = "block";
 			document.getElementById("levelDescription").style.display = "block";
 			document.getElementById("startButton").style.display = "block";
 			document.body.style.backgroundColor = "white";
@@ -452,6 +473,7 @@
 			score = 0;
 			heart = 3;
 			document.getElementById("startButton").style.display = "none";
+			document.getElementById("levelTitle").style.display = "none";
 			document.getElementById("levelDescription").style.display = "none";
 			startTimer();
 			startGame();
