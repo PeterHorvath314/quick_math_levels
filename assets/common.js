@@ -1,10 +1,20 @@
 // Spoločné funkcie pre všetky levely
 
+// Dynamicky zistiť cestu k zvukom v závislosti od lokácie HTML
+function getSoundPath(filename) {
+	// Skontroluj či sme v podriadenej zložke (beginner-levels. ultra-fast-levels atď)
+	if (window.location.pathname.includes('beginner-levels') || 
+		window.location.pathname.includes('ultra-fast-levels')) {
+		return '../assets/sounds/' + filename;
+	}
+	return 'assets/sounds/' + filename;
+}
+
 // Prednahratie audio súborov pre lepší výkon
 const tickSounds = [
-	new Audio('assets/sounds/tick. tick 1.mp3'),
-	new Audio('assets/sounds/tick. tick 2.mp3'),
-	new Audio('assets/sounds/tick. 4-Clock ticking  sound effect.mp3')
+	new Audio(getSoundPath('tick. tick 1.mp3')),
+	new Audio(getSoundPath('tick. tick 2.mp3')),
+	new Audio(getSoundPath('tick. 4-Clock ticking  sound effect.mp3'))
 ];
 
 // Nastavenie hlasitosti pre tick zvuky
@@ -13,13 +23,13 @@ tickSounds.forEach(sound => {
 });
 
 // Prednahratie achievement zvukov
-const achievementSound = new Audio('assets/sounds/Achievement Sound Effect.mp3');
-const minecraftXpSound = new Audio('assets/sounds/minecraft xp  Sound Effect.mp3');
-const rareAchievementSound = new Audio('assets/sounds/Rare Achievement - Minecraft Sound Effect (HD).mp3');
+const achievementSound = new Audio(getSoundPath('Achievement Sound Effect.mp3'));
+const minecraftXpSound = new Audio(getSoundPath('minecraft xp  Sound Effect.mp3'));
+const rareAchievementSound = new Audio(getSoundPath('Rare Achievement - Minecraft Sound Effect (HD).mp3'));
 
 // Prednahratie buzzer zvukov pre správne/nesprávne odpovede
-const correctBuzzer = new Audio('assets/sounds/buzzer. correct.mp3');
-const wrongBuzzer = new Audio('assets/sounds/buzzer. wrong.mp3');
+const correctBuzzer = new Audio(getSoundPath('buzzer. correct.mp3'));
+const wrongBuzzer = new Audio(getSoundPath('buzzer. wrong.mp3'));
 
 // Nastavenie hlasitosti pre achievement zvuky
 achievementSound.volume = 0.5;
