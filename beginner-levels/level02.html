@@ -197,14 +197,106 @@
 		.next-level-button:hover {
 			transform: translate(-50%, -50%) scale(1.05);
 		}
+
+		/* Secret Admin Modal Styles */
+		.admin-modal {
+			display: none;
+			position: fixed;
+			z-index: 2000;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+
+		.admin-modal-content {
+			background-color: #fefefe;
+			margin: 15% auto;
+			padding: 20px;
+			border: 2px solid #0330f8;
+			width: 80%;
+			max-width: 400px;
+			border-radius: 15px;
+			text-align: center;
+		}
+
+		.admin-modal-content h2 {
+			color: #0330f8;
+			margin-top: 0;
+		}
+
+		.admin-modal-content input {
+			width: 100%;
+			padding: 10px;
+			margin: 10px 0;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			font-size: 16px;
+			box-sizing: border-box;
+		}
+
+		.admin-modal-content button {
+			padding: 10px 20px;
+			margin: 10px 5px;
+			border: none;
+			border-radius: 8px;
+			font-size: 14px;
+			cursor: pointer;
+			background: #0330f8;
+			color: white;
+			font-weight: bold;
+		}
+
+		.admin-modal-content button:hover {
+			background: #0220c0;
+		}
+
+		.admin-options {
+			display: none;
+			margin-top: 20px;
+		}
+
+		.admin-options button {
+			display: block;
+			width: 100%;
+			margin: 10px 0;
+		}
+
+		.admin-error {
+			color: red;
+			margin: 10px 0;
+			display: none;
+		}
 	</style>
 </head>
 <body>
+	<!-- Secret Admin Modal -->
+	<div id="adminModal" class="admin-modal">
+		<div class="admin-modal-content">
+			<h2>Admin Panel</h2>
+			<p>Zadajte heslo:</p>
+			<input type="password" id="adminPassword" placeholder="Heslo">
+			<div class="admin-error" id="adminError">Nesprávne heslo!</div>
+			<button onclick="verifyAdminPassword()">Overit</button>
+			<button onclick="closeAdminModal()">Zrušit</button>
+			<div class="admin-options" id="adminOptions">
+				<h3>Vyber možnost:</h3>
+				<button onclick="clearAppCache()">🗑️ Vymazat cache</button>
+				<button onclick="unlockAllLevels()">🔓 Odomknut všetky levely</button>
+				<button onclick="closeAdminModal()">❌ Zrušit</button>
+			</div>
+		</div>
+	</div>
+
 	<h1 style="
 		text-align: center;
 		font-size: clamp(32px, 5vw, 60px);
 		margin: 2vh 0;
-		">
+		cursor: pointer;
+		user-select: none;
+		"
+		onclick="handleTitleClick(event)">
 		Level 2
 	</h1>
 
@@ -488,6 +580,101 @@
 			startTimer();
 			startGame();
 		}
+
+		// Admin Panel Functions
+		let adminClickCount = 0;
+		let adminClickTimer = null;
+
+		function handleTitleClick(event) {
+			adminClickCount++;
+			
+			if (adminClickTimer) {
+				clearTimeout(adminClickTimer);
+			}
+			
+			if (adminClickCount === 3) {
+				adminClickCount = 0;
+				openAdminModal();
+			}
+			
+			adminClickTimer = setTimeout(() => {
+				adminClickCount = 0;
+			}, 500);
+		}
+
+		function openAdminModal() {
+			document.getElementById("adminModal").style.display = "block";
+			document.getElementById("adminPassword").value = "";
+			document.getElementById("adminError").style.display = "none";
+			document.getElementById("adminOptions").style.display = "none";
+			document.getElementById("adminPassword").focus();
+		}
+
+		function closeAdminModal() {
+			document.getElementById("adminModal").style.display = "none";
+			document.getElementById("adminPassword").value = "";
+			document.getElementById("adminError").style.display = "none";
+			document.getElementById("adminOptions").style.display = "none";
+		}
+
+		function verifyAdminPassword() {
+			const password = document.getElementById("adminPassword").value;
+			const correctPassword = "quickmath123";
+			
+			if (password === correctPassword) {
+				document.getElementById("adminError").style.display = "none";
+				document.getElementById("adminPassword").style.display = "none";
+				document.getElementById("adminModal").querySelector("p").style.display = "none";
+				document.getElementById("adminModal").querySelector("button:first-of-type").style.display = "none";
+				document.getElementById("adminOptions").style.display = "block";
+			} else {
+				document.getElementById("adminError").style.display = "block";
+				document.getElementById("adminPassword").value = "";
+			}
+		}
+
+		function clearAppCache() {
+			if (confirm("Naozaj chceš vymazaž všetok cache?")) {
+				localStorage.clear();
+				sessionStorage.clear();
+				alert("Cache vymazaný! Stránka sa znova načítava...");
+				setTimeout(() => {
+					location.reload();
+				}, 800);
+			}
+		}
+
+		function unlockAllLevels() {
+			if (confirm("Naozaj chceš odomknut všetky levely?")) {
+				// Odomkni všetky levely v localStorage
+				for (let i = 1; i <= 20; i++) {
+					localStorage.setItem(`level_${i}_unlocked`, "true");
+					localStorage.setItem(`level_${i}_completed`, "true");
+				}
+				alert("Všetky levely sú odomknuté!");
+				closeAdminModal();
+			}
+		}
+
+		// Close modal when clicking outside of it
+		window.onclick = function(event) {
+			const modal = document.getElementById("adminModal");
+			if (event.target === modal) {
+				closeAdminModal();
+			}
+		}
+
+		// Allow Enter key to submit password
+		document.addEventListener("DOMContentLoaded", function() {
+			const passwordInput = document.getElementById("adminPassword");
+			if (passwordInput) {
+				passwordInput.addEventListener("keypress", function(e) {
+					if (e.key === "Enter") {
+						verifyAdminPassword();
+					}
+				});
+			}
+		});
 	</script>
 </body>
 </html>
