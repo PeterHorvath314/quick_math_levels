@@ -1,5 +1,5 @@
 // Configuration file for locked levels
-const LOCKED_LEVELS = [4, 5, 6, 7, 8, 9, 10]; // Ultra Fast levels that are locked
+const LOCKED_LEVELS = [  6, 7, 8, 9, 10]; // Ultra Fast levels that are locked
 
 // Function to check if current level is locked
 function checkIfLocked() {

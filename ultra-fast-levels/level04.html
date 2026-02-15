@@ -134,14 +134,16 @@
 			left: 50%;
 			transform: translate(-50%, -50%);
 			font-size: clamp(18px, 3.5vw, 28px);
-			color: rgb(50, 50, 50);
+			color: white;
 			margin: 0;
 			text-align: center;
 			font-weight: bold;
 			padding: 1.5vh 3vw;
-			border: 1px solid black;
+			border: 2px solid #8b5cf6;
 			border-radius: 10px;
-			background-color: rgb(220, 220, 220);
+			background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+			box-shadow: 0 0 20px rgba(131, 92, 246, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.1);
+			animation: speedPulse 1.5s ease-in-out infinite;
 		}
 
 		.description-style {
@@ -198,6 +200,27 @@
 		.next-level-button:hover {
 			transform: translate(-50%, -50%) scale(1.05);
 		}
+
+		@keyframes speedPulse {
+			0%, 100% {
+				box-shadow: 0 0 20px rgba(131, 92, 246, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.1);
+				transform: translate(-50%, -50%) scale(1);
+			}
+			50% {
+				box-shadow: 0 0 40px rgba(131, 92, 246, 1), inset 0 0 20px rgba(255, 255, 255, 0.2);
+				transform: translate(-50%, -50%) scale(1.02);
+			}
+		}
+
+		.start-button {
+			background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+			border: 2px solid #8b5cf6 !important;
+			box-shadow: 0 8px 16px rgba(45, 9, 153, 0.4), 0 0 40px rgba(147, 129, 199, 0.8), 0 0 80px rgba(131, 92, 246, 0.56) !important;
+		}
+
+		.start-button:hover {
+			box-shadow: 0 8px 16px rgba(131, 92, 246, 0.60), 0 0 48px rgba(131, 92, 246, 0.8), 0 0 96px rgba(131, 92, 246, 0.64) !important;
+		}
 	</style>
 	<script src="./lock-levels.js"></script>
 </head>
@@ -207,7 +230,7 @@
 		font-size: clamp(32px, 5vw, 60px);
 		margin: 2vh 0;
 		">
-		Level 8
+		Level 4
 	</h1>
 
 	<button onclick="window.location.href='../levels-ultra-fast.html';" class="back-button">
@@ -229,15 +252,15 @@
 	</h1>
 
 	<p class="description-title-style" id="levelTitle">
-		si pripraveny na RYCHLOST 
+		⚡si pripravený na RÝCHLOSŤ?⚡
 	</p>
 
 
 	<p class="description-style" id="levelDescription">
-		Score 10 points within 25 seconds
+		Score 10 points within 15 seconds
 	</p>
 
-	<button onclick="game()" class="button-style" style="top: 65%; left: 50%;" id="startButton">
+	<button onclick="game()" class="button-style start-button" style="top: 65%; left: 50%;" id="startButton">
 		Start
 	</button>
 
@@ -255,7 +278,7 @@
 		<div class="victory-message">
 			🎉 LEVEL COMPLETE! 🎉
 		</div>
-		<button onclick="window.location.href='level05.html';" class="next-level-button">
+		<button onclick="window.location.href='level04.html';" class="next-level-button">
 			Next Level →
 		</button>
 	</div>
@@ -267,7 +290,7 @@
 		let score = 0;
 		let heart = 3;
 		let correctAnswer = 0;
-		let timeLeft = 25;
+		let timeLeft = 15;
 		let timerInterval = null;
 
 		function updateHearts() {
@@ -294,7 +317,7 @@
 		}
 
 		function startTimer() {
-			timeLeft = 25;
+			timeLeft = 15;
 			document.getElementById("timer").style.display = "block";
 			updateTimer();
 			
@@ -324,8 +347,8 @@
 			// ensure no solution button remains focused from previous question
 			document.querySelectorAll('.solution-button').forEach(b => b.blur && b.blur());
 			updateHearts();
-			const a = generate_number(6, 10);
-			const b = generate_number(6, 10);
+			const a = generate_number(2, 10);
+			const b = generate_number(2, 10);
 			const where_is_correct_anwser = generate_number2();
 			
 
@@ -468,7 +491,7 @@
 			document.body.style.backgroundColor = "white";
 			score = 0;
 			heart = 3;
-			timeLeft = 25;
+			timeLeft = 15;
 		}
 
 		function game() {
